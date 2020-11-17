@@ -216,8 +216,10 @@ export default {
 
     // Delete User
     deleteUser(user) {
-      this.user = user.val();
-
+      this.user.name = user.name;
+      this.user.phone = user.phone;
+      this.user.email = user.email;
+      this.user.userID = user.userID;
       this.showDeleteModal = true;
     },
 
