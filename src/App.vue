@@ -2,9 +2,10 @@
   <div id="app">
     <div>
       <div class="container-fluid">
-        <div class="row align-items-center" style="background-color: #E5EEFE; height: 10vh">
-          <div class="col-lg-12 mt-4 p-0">
-            <p class="text-dark" style="font-size: 25px">CRUD Application Using Vue.js and Firebase</p>
+        <div class="row align-items-center " style="background-color: #E2FBFF; height: 100px">
+          <div class="col-lg-12">
+            <img alt="Logo" class="logo" src="./assets/clinical-logo.png">
+            <!--            <p class="text-dark" style="font-size: 25px">CRUD Application Using Vue.js and Firebase</p>-->
           </div>
         </div>
       </div>
@@ -15,7 +16,7 @@
               <h3 class="mt-0 float-left">Patients Registry</h3>
             </div>
             <div class="col-lg-6 col-md-6 col-6">
-              <button class="btn btn-info float-right" @click="showAddModal=true ">
+              <button class="btn btn-info float-right" @click="reset()">
                 <i class="fa fa-user mr-2"></i>&nbsp;&nbsp;Add New Patient
               </button>
             </div>
@@ -40,7 +41,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(user, idx) in users" :key="idx" class="text-center bg-white">
+              <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white">
                 <td>{{ idx + 1 }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
@@ -136,11 +137,13 @@
               <h4 style="color: #F78E8E">Are you sure you want to delete this user?</h4>
               <h5>You are deleting patient 'Kevin'</h5>
               <hr>
-              <button class="btn btn-lg" style="width: 100px; border-radius: 30px; background-color: #EAEAFA; color: #9195EE"
-                      @click="deleteUserFinal(); showDeleteModal=false">Yes
+              <button class="btn btn-lg"
+                      style="width: 100px; border-radius: 30px; background-color: #EAEAFA; color: #9195EE"
+                      @click="deleteUserFinal(); showDeleteModal=false; successMsg=true">Yes
               </button>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <button class="btn btn-lg" style="width: 100px; border-radius: 30px; background-color: #FBEAEA; color: #F78F8F"
+              <button class="btn btn-lg"
+                      style="width: 100px; border-radius: 30px; background-color: #FBEAEA; color: #F78F8F"
                       @click="showDeleteModal=false">No
               </button>
             </div>
@@ -164,7 +167,6 @@ export default {
       showEditModal: false,
       showDeleteModal: false,
       users: [],
-      currentUser: null,
       user: {
         userID: null,
         name: null,
@@ -175,40 +177,79 @@ export default {
   },
   methods: {
 
+    // Fetch Data and updates application with realtime data from firebase
     watcher() {
-      db.collection("patients").onSnapshot((querySnapshot) => {
-        this.users = [];
+      this.users = [];
+      db.collection("patients").get().then((querySnapshot) => {
+
         querySnapshot.forEach((doc) => {
-          this.users.push(doc);
+
+          const data = {
+            'userID': doc.id,
+            'name': doc.data().name,
+            'email': doc.data().email,
+            'phone': doc.data().phone
+          }
+
+          this.users.push(data);
         });
       });
     },
 
-    // Displays all users stores in firebase
+    // Displays all users stored in firebase
     displayAllUsers() {
       db.collection("patients").get().then((querySnapshot) => {
 
         querySnapshot.forEach((doc) => {
 
-          this.users.push(doc.data());
-        });
+          const data = {
+            'userID': doc.id,
+            'name': doc.data().name,
+            'email': doc.data().email,
+            'phone': doc.data().phone
+          }
 
+          this.users.push(data);
+        });
       });
     },
 
-    // Creates New User with an auto generated Document
+    // Creates New User with an auto generated Document ID
     saveNewUser() {
-      db.collection("patients").add(this.user)
-          .then((docRef) => {
-            console.log("Document written with ID: ", docRef.id);
-            this.displayAllUsers();
-            this.user.userID = docRef.id;
-            this.updateUser();
+      db.collection("patients").add(this.user).then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+        this.user.userID = docRef.id; //Saves document ID as data field for user
+        this.updateUser();
+      }).catch(function (error) {
+        console.error("Error adding document: ", error);
+        this.errorMsg = true;
+      });
+    },
+
+    // Update User
+    updateUser() {
+      db.collection("patients").doc(this.user.userID).update(this.user)
+          .then(() => {
+            this.showEditModal = false;
             this.watcher();
+
+            console.log("Document successfully updated!");
           })
           .catch(function (error) {
-            console.error("Error adding document: ", error);
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+            this.errorMsg = true;
           });
+    },
+
+    // Delete User
+    deleteUserFinal() {
+      db.collection("patients").doc(this.user.userID).delete().then(() => {
+        this.watcher();
+        console.log("Document successfully deleted!");
+      }).catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
     },
 
     // Edit User
@@ -229,35 +270,14 @@ export default {
       this.showDeleteModal = true;
     },
 
-    // Update User
-    updateUser() {
-      db.collection("patients").doc(this.user.userID).update(this.user)
-          .then(() => {
-            this.showEditModal = false;
-            this.watcher();
-
-            console.log("Document successfully updated!");
-          })
-          .catch(function (error) {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-          });
-    },
-
-    // Delete User
-    deleteUserFinal() {
-      db.collection("patients").doc(this.user.userID).delete().then(() => {
-        this.watcher();
-        console.log("Document successfully deleted!");
-      }).catch(function (error) {
-        console.error("Error removing document: ", error);
-      });
-    },
-
     // Reset the data from the input field to null
     reset() {
-      // Object.assign(this.$data, this.$options.data.apply((this)));
-    }
+      this.user.name = '';
+      this.user.phone = '';
+      this.user.email = '';
+      this.user.userID = '';
+      this.showAddModal = true;
+    },
   },
 
   created() {
@@ -267,10 +287,10 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
 #app {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -306,8 +326,14 @@ a {
 }
 
 .btn-info {
-  background-color: #2B64FE !important;
+  background-color: #43D3E8 !important;
+  border-color: #43D3E8;
   border-radius: 10px;
+}
+
+.btn-info:hover {
+  background-color: #67ECFF !important;
+  border-color: #67ECFF;
 }
 
 .bg-info {
@@ -318,11 +344,18 @@ a {
   color: #575D76 !important;
 }
 
-.fa-edit:hover{
+.fa-edit:hover {
   color: #9195EE
 }
 
-.fa-trash:hover{
+.fa-trash:hover {
   color: #F78F8F;
+}
+
+.logo {
+  height: auto;
+  width: 200px;
+  top: -8.5vh;
+  left: 11.5vw !important;
 }
 </style>
