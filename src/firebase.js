@@ -3,7 +3,8 @@ require("firebase/firestore");
 
 // Initialize Firebase
 
-var config = {
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
     apiKey: "AIzaSyC0oSwy13OSbzMXgZAC5mpiStaZt0GfROc",
     authDomain: "users-registry.firebaseapp.com",
     databaseURL: "https://users-registry.firebaseio.com",
@@ -14,7 +15,7 @@ var config = {
     measurementId: "G-PS5YMLZ9RF"
 };
 
-const fb = firebase.initializeApp(config);
+const fb = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 export {fb,db};
