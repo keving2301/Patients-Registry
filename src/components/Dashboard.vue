@@ -1,177 +1,179 @@
 <template>
-<div id="dashboard">
-  <div>
+  <div id="dashboard">
+    <div>
 
-    <div class="container" style="background: #F1F3F9; border-radius: 10px">
-      <div class="mt-5">
-        <div class="row pt-4">
-          <div class="col-lg-6 col-md-6 col-6">
-            <h3 class="mt-0 float-left">Patients Registry</h3>
+      <div class="container" style="background: #F1F3F9; border-radius: 10px">
+        <div class="mt-5">
+          <div class="row pt-4">
+            <div class="col-lg-6 col-md-6 col-6">
+              <h3 class="mt-0 float-left" style="margin: 40px 0 0">Patients Registry</h3>
+            </div>
+            <div class="col-lg-6 col-md-6 col-6">
+              <button class="btn btn-info float-right" @click="reset()">
+                <i class="fa fa-user mr-2"></i>&nbsp;&nbsp;Add New Patient
+              </button>
+            </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-6">
-            <button class="btn btn-info float-right" @click="reset()">
-              <i class="fa fa-user mr-2"></i>&nbsp;&nbsp;Add New Patient
-            </button>
+        </div>
+        <hr class="bg-info">
+        <div v-if="errorMsg" class="alert alert-danger">Error Message</div>
+        <div v-if="successMsg" class="alert alert-success">Success Message</div>
+
+        <!--Display Records-->
+        <div class="row">
+          <div class="col-lg-12">
+            <table class="table table-bordered">
+              <thead class="border">
+              <tr class="text-center bg-info text-dark">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Sex</th>
+                <th>Date of Birth</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white">
+                <td>{{ idx + 1 }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.sex }}</td>
+                <td>{{ user.dateOfBirth }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td><a class="text-dark" href="#" @click="editUser(user)"><i class="fa fa-edit"></i></a></td>
+                <td><a class="text-dark" href="#" @click="deleteUser(user)"><i class="fa fa-trash"></i></a></td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <hr class="bg-info">
-      <div v-if="errorMsg" class="alert alert-danger">Error Message</div>
-      <div v-if="successMsg" class="alert alert-success">Success Message</div>
 
-      <!--Display Records-->
-      <div class="row">
-        <div class="col-lg-12">
-          <table class="table table-bordered">
-            <thead class="border">
-            <tr class="text-center bg-info text-dark">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Sex</th>
-              <th>Date of Birth</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white">
-              <td>{{ idx + 1 }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.sex }}</td>
-              <td>{{ user.dateOfBirth }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.phone }}</td>
-              <td><a class="text-dark" href="#" @click="editUser(user)"><i class="fa fa-edit"></i></a></td>
-              <td><a class="text-dark" href="#" @click="deleteUser(user)"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!--Add New User Model-->
-    <div v-if="showAddModal" id="add" class="overlay">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add New User</h5>
-            <button class="close" type="button" @click="showAddModal=false">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body p-4">
-            <form action="#" method="post">
-              <div class="form-group">
-                <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
-                       type="text">
-              </div>
-              <div class="form-group">
-                <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
-                       type="text">
-              </div>
-              <div class="form-group">
-                <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth" placeholder="Date of Birth"
-                       type="text">
-              </div>
-              <div class="form-group">
-                <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
-                       type="email">
-              </div>
-              <div class="form-group">
-                <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
-                       type="tel">
-              </div>
-              <div class="form-group">
-                <button class="btn btn-info btn-block btn-lg"
-                        @click="showAddModal=false; saveNewUser(); successMsg=true">Add User
-                </button>
-              </div>
-            </form>
+      <!--Add New User Model-->
+      <div v-if="showAddModal" id="add" class="overlay">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add New User</h5>
+              <button class="close" type="button" @click="showAddModal=false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-4">
+              <form action="#" method="post">
+                <div class="form-group">
+                  <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
+                         type="text">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
+                         type="text">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
+                         placeholder="Date of Birth"
+                         type="text">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
+                         type="email">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
+                         type="tel">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-info btn-block btn-lg"
+                          @click="showAddModal=false; saveNewUser(); successMsg=true">Add User
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!--Edit User Model-->
-    <div v-if="showEditModal" id="edit" class="overlay" tabindex="-1">
-      <div class="modal-dialog" role="button">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Update User</h5>
-            <button aria-label="Close" class="close" data-dismiss="modal" type="button" @click="showEditModal=false">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body p-4">
-            <form action="#" method="post">
-              <div class="form-group">
-                <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
-                       type="text">
-              </div>
-              <div class="form-group">
-                <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
-                       type="text">
-              </div>
-              <div class="form-group">
-                <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth" placeholder="Date of Birth"
-                       type="text">
-              </div>
-              <div class="form-group">
-                <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
-                       type="email">
-              </div>
-              <div class="form-group">
-                <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
-                       type="tel">
-              </div>
-              <div class="form-group">
-                <button class="btn btn-info btn-block btn-lg" @click="updateUser(); showEditModal=false ">Update User
-                </button>
-              </div>
-            </form>
+      <!--Edit User Model-->
+      <div v-if="showEditModal" id="edit" class="overlay" tabindex="-1">
+        <div class="modal-dialog" role="button">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Update User</h5>
+              <button aria-label="Close" class="close" data-dismiss="modal" type="button" @click="showEditModal=false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-4">
+              <form action="#" method="post">
+                <div class="form-group">
+                  <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
+                         type="text">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
+                         type="text">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
+                         placeholder="Date of Birth"
+                         type="text">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
+                         type="email">
+                </div>
+                <div class="form-group">
+                  <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
+                         type="tel">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-info btn-block btn-lg" @click="updateUser(); showEditModal=false ">Update User
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--Delete User Model-->
-    <div v-if="showDeleteModal" id="delete" class="overlay">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Delete User</h5>
-            <button class="close" type="button" @click="showDeleteModal=false">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body p-4">
-            <h4 style="color: #F78E8E">Are you sure you want to delete this user?</h4>
-            <h5>You are deleting patient 'Kevin'</h5>
-            <hr>
-            <button class="btn btn-lg"
-                    style="width: 100px; border-radius: 30px; background-color: #EAEAFA; color: #9195EE"
-                    @click="deleteUserFinal(); showDeleteModal=false; successMsg=true">Yes
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-lg"
-                    style="width: 100px; border-radius: 30px; background-color: #FBEAEA; color: #F78F8F"
-                    @click="showDeleteModal=false">No
-            </button>
+      <!--Delete User Model-->
+      <div v-if="showDeleteModal" id="delete" class="overlay">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete User</h5>
+              <button class="close" type="button" @click="showDeleteModal=false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-4">
+              <h4 style="color: #F78E8E">Are you sure you want to delete this user?</h4>
+              <h5>You are deleting patient 'Kevin'</h5>
+              <hr>
+              <button class="btn btn-lg"
+                      style="width: 100px; border-radius: 30px; background-color: #EAEAFA; color: #9195EE"
+                      @click="deleteUserFinal(); showDeleteModal=false; successMsg=true">Yes
+              </button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-lg"
+                      style="width: 100px; border-radius: 30px; background-color: #FBEAEA; color: #F78F8F"
+                      @click="showDeleteModal=false">No
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 import {db} from '../firebase'
 
 export default {
-name: "Dashboard",
+  name: "Dashboard",
   data() {
     return {
       errorMsg: false,
@@ -313,20 +315,6 @@ name: "Dashboard",
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
-
-#app {
-  font-family: 'Quicksand', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h3 {
-  margin: 40px 0 0;
-}
 
 ul {
   list-style-type: none;
@@ -378,10 +366,4 @@ a {
   color: #F78F8F;
 }
 
-.logo {
-  height: auto;
-  width: 200px;
-  top: -8.5vh;
-  left: 11.5vw !important;
-}
 </style>

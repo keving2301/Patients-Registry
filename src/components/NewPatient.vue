@@ -1,7 +1,7 @@
 
 <template>
 <div id="new-patient">
-<h3>New Patient</h3>
+  <h3>New Patient</h3>
 </div>
 </template>
 
