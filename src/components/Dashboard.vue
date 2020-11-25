@@ -9,9 +9,11 @@
               <h3 class="mt-0 float-left" style="margin: 40px 0 0">Patients Registry</h3>
             </div>
             <div class="col-lg-6 col-md-6 col-6">
-              <button class="btn btn-info float-right" @click="reset()">
+              <router-link to="/new">
+              <button class="btn btn-info float-right"> <!--@click="reset()">-->
                 <i class="fa fa-user mr-2"></i>&nbsp;&nbsp;Add New Patient
               </button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -38,12 +40,12 @@
               <tbody>
               <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white">
                 <td>{{ idx + 1 }}</td>
-                <td>{{ user.name }}</td>
+                <td><router-link class="text-decoration-none" :to="{name: 'view-patient', params: {userID: user.userID}}">{{ user.name }}</router-link></td>
                 <td>{{ user.sex }}</td>
                 <td>{{ user.dateOfBirth }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.phone }}</td>
-                <td><a class="text-dark" href="#" @click="editUser(user)"><i class="fa fa-edit"></i></a></td>
+                <td><router-link class="text-decoration-none" :to="{name: 'edit-patient',params: {userID: user.userID}}"><a class="text-dark"><i class="fa fa-edit"></i></a></router-link></td>
                 <td><a class="text-dark" href="#" @click="deleteUser(user)"><i class="fa fa-trash"></i></a></td>
               </tr>
               </tbody>
@@ -328,6 +330,13 @@ li {
 
 a {
   color: #42b983;
+}
+
+router-link {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .overlay {
