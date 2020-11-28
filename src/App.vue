@@ -18,6 +18,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&display=swap');
 
 #app {
   font-family: 'Quicksand', sans-serif;
@@ -26,5 +27,14 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.signature {
+  font-family: 'Arizonia', cursive;
+  font-size: 30px !important;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
 }
 </style>

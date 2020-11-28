@@ -37,14 +37,14 @@
                 <th>Delete</th>
               </tr>
               </thead>
-              <tbody>
-              <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white">
+              <tbody class="rowhover">
+              <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white rowhover">
                 <td>{{ idx + 1 }}</td>
-                <td><router-link class="text-decoration-none" :to="{name: 'view-patient', params: {userID: user.userID}}">{{ user.name }}</router-link></td>
+                <td><router-link class="text-decoration-none link" :to="{name: 'view-patient', params: {userID: user.userID}}">{{ user.fName }} {{ user.mName }} {{ user.lName}}</router-link></td>
                 <td>{{ user.sex }}</td>
                 <td>{{ user.dateOfBirth }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.phone }}</td>
+                <td>{{ user.cellNumber }}</td>
                 <td><router-link class="text-decoration-none" :to="{name: 'edit-patient',params: {userID: user.userID}}"><a class="text-dark"><i class="fa fa-edit"></i></a></router-link></td>
                 <td><a class="text-dark" href="#" @click="deleteUser(user)"><i class="fa fa-trash"></i></a></td>
               </tr>
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <!--Add New User Model-->
+     <!-- &lt;!&ndash;Add New User Model&ndash;&gt;
       <div v-if="showAddModal" id="add" class="overlay">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -98,7 +98,7 @@
         </div>
       </div>
 
-      <!--Edit User Model-->
+      &lt;!&ndash;Edit User Model&ndash;&gt;
       <div v-if="showEditModal" id="edit" class="overlay" tabindex="-1">
         <div class="modal-dialog" role="button">
           <div class="modal-content">
@@ -139,7 +139,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <!--Delete User Model-->
       <div v-if="showDeleteModal" id="delete" class="overlay">
         <div class="modal-dialog">
@@ -152,7 +152,7 @@
             </div>
             <div class="modal-body p-4">
               <h4 style="color: #F78E8E">Are you sure you want to delete this user?</h4>
-              <h5>You are deleting patient 'Kevin'</h5>
+              <h5>You are deleting patient {{ user.fName }}</h5>
               <hr>
               <button class="btn btn-lg"
                       style="width: 100px; border-radius: 30px; background-color: #EAEAFA; color: #9195EE"
@@ -186,11 +186,13 @@ export default {
       users: [],
       user: {
         userID: null,
-        name: null,
+        fName: null,
+        mName: null,
+        lName: null,
         sex: null,
         dateOfBirth: null,
         email: null,
-        phone: null
+        cellNumber: null
       }
     }
   },
@@ -205,11 +207,13 @@ export default {
 
           const data = {
             'userID': doc.id,
-            'name': doc.data().name,
+            'fName': doc.data().fName,
+            'mName': doc.data().mName,
+            'lName': doc.data().lName,
             'sex': doc.data().sex,
             'dateOfBirth': doc.data().dateOfBirth,
             'email': doc.data().email,
-            'phone': doc.data().phone
+            'cellNumber': doc.data().cellNumber
           }
 
           this.users.push(data);
@@ -225,11 +229,13 @@ export default {
 
           const data = {
             'userID': doc.id,
-            'name': doc.data().name,
+            'fName': doc.data().fName,
+            'mName': doc.data().mName,
+            'lName': doc.data().lName,
             'sex': doc.data().sex,
             'dateOfBirth': doc.data().dateOfBirth,
             'email': doc.data().email,
-            'phone': doc.data().phone
+            'cellNumber': doc.data().cellNumber
           }
 
           this.users.push(data);
@@ -277,10 +283,12 @@ export default {
 
     // Edit User
     editUser(user) {
-      this.user.name = user.name;
+      this.user.fName = user.fName;
+      this.user.mName = user.mName;
+      this.user.lName = user.lName;
       this.user.sex = user.sex;
       this.user.dateOfBirth = user.dateOfBirth;
-      this.user.phone = user.phone;
+      this.user.cellNumber = user.cellNumber;
       this.user.email = user.email;
       this.user.userID = user.userID;
       this.showEditModal = true;
@@ -288,10 +296,12 @@ export default {
 
     // Delete User
     deleteUser(user) {
-      this.user.name = user.name;
+      this.user.fName = user.fName;
+      this.user.mName = user.mName;
+      this.user.lName = user.lName;
       this.user.sex = user.sex;
       this.user.dateOfBirth = user.dateOfBirth;
-      this.user.phone = user.phone;
+      this.user.cellNumber = user.cellNumber;
       this.user.email = user.email;
       this.user.userID = user.userID;
       this.showDeleteModal = true;
@@ -299,10 +309,12 @@ export default {
 
     // Reset the data from the input field to null
     reset() {
-      this.user.name = '';
+      this.user.fName = '';
+      this.user.mName = '';
+      this.user.lName = '';
       this.user.sex = '';
       this.user.dateOfBirth = '';
-      this.user.phone = '';
+      this.user.cellNumber = '';
       this.user.email = '';
       this.user.userID = '';
       this.showAddModal = true;
@@ -337,6 +349,17 @@ router-link {
   padding: 0 !important;
   width: 100% !important;
   height: 100% !important;
+
+}
+.rowhover:hover{
+  background: #f2f9ff !important;
+}
+
+.link {
+  color: #43D3E8 !important;
+}
+.link:hover {
+  color: #1a8d9f !important;
 }
 
 .overlay {

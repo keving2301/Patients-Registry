@@ -4,13 +4,13 @@
       <div class="mt-5">
         <form class="m-3" @submit.prevent="savePatient">
           <div class="form-row pt-5">
-            <div class="col text-left d-inline-flex align-items-center">
+            <div class="col text-left d-inline-flex align-items-center text-center">
               <label class="p-0 m-0">Today's Date: </label>
-              <input class="form-control col-3 ml-3 bg-white text-center" disabled placeholder="{ Date }" type="text">
+              <input class="form-control col-lg-4 bg-white" v-model="user.registrationDate" disabled type="date">
             </div>
             <div class="col text-right d-inline-flex align-items-center">
               <label class="p-0 m-0">PCP: </label>
-              <input v-model="user.pcp" class="form-control col-7 ml-3" placeholder="PCP" type="text">
+              <input v-model="user.pcp" class="form-control col-lg-7 ml-3" placeholder="PCP" type="text">
             </div>
           </div>
 
@@ -18,16 +18,16 @@
           <h5 class="my-5 py-2 text-dark" style="background-color: #D5DCE4">Patient Information</h5>
           <div class="form-row align-items-center text-left">
             <div class="col-lg-3">
-              <label class="w-100">Patient's last name: </label>
-              <input v-model="user.name" class="form-control" placeholder="Last Name" required type="text">
-            </div>
-            <div class="col-lg-2">
-              <label class="w-100">First: </label>
+              <label class="w-100">* Patient's first name: </label>
               <input v-model="user.fName" class="form-control" placeholder="First Name" required type="text">
             </div>
-            <div class="col-lg-2 mr-lg-5">
+            <div class="col-lg-2">
               <label class="w-100">Middle: </label>
-              <input v-model="user.mName" class="form-control" placeholder="Initial" required type="text">
+              <input v-model="user.mName" class="form-control" placeholder="Initial" type="text">
+            </div>
+            <div class="col-lg-2 mr-lg-5">
+              <label class="w-100">* Last: </label>
+              <input v-model="user.lName" class="form-control" placeholder="Last Name" required type="text">
             </div>
             <div class="col-lg-4">
               <label class="ml-lg-5">Marital Status: </label>
@@ -44,14 +44,14 @@
             <div class="col-lg-2 align-items-center text-left">
               <label class="w-100">Is this your legal name? </label>
               <div class="form-check form-check-inline">
-                <input id="yesLegalName" v-model="user.legalName" class="form-check-input" name="legalName" required
+                <input id="yesLegalName" v-model="user.isLegalName" class="form-check-input" name="legalName"
                        type="radio"
-                       value="option1">
+                       value="Yes">
                 <label class="form-check-label" for="yesLegalName">Yes</label>
               </div>
               <div class="form-check form-check-inline">
-                <input id="noLegalName" v-model="user.legalName" class="form-check-input" name="legalName" type="radio"
-                       value="option2">
+                <input id="noLegalName" v-model="user.isLegalName" class="form-check-input" name="legalName" type="radio"
+                       value="No">
                 <label class="form-check-label" for="noLegalName">No</label>
               </div>
             </div>
@@ -60,32 +60,32 @@
               <input v-model="user.legalName" class="form-control " placeholder="Legal Name" type="text">
             </div>
             <div class="col-lg-2 w-auto align-items-center mr-lg-4 "> <!-- Date input -->
-              <label class="w-100" for="date">Birth date:</label>
+              <label class="w-100" for="date">* Birth date:</label>
               <input id="date" v-model="user.dateOfBirth" class="form-control" name="date" placeholder="MM/DD/YYYY"
                      required type="text"/>
             </div>
             <div class="col-lg-1 align-items-center mr-lg-4">
               <label class="w-100" for="age">Age:</label>
-              <input id="age" v-model="user.age" class="form-control" max="100" min="0" name="age" required step="10"
+              <input id="age" v-model="user.age" class="form-control" max="100" min="0" name="age" step="10"
                      type="number"
                      value="30">
             </div>
             <div class="col-lg-2 align-items-center">
-              <label class="w-100">Sex:</label>
+              <label class="w-100">* Sex:</label>
               <div class="form-check form-check-inline">
                 <input id="sexMale" v-model="user.sex" class="form-check-input" name="sexRadioOption" type="radio"
-                       value="option1">
+                       value="M">
                 <label class="form-check-label" for="sexMale">Male</label>
               </div>
               <div class="form-check form-check-inline">
                 <input id="sexFemale" v-model="user.sex" class="form-check-input" name="sexRadioOption" type="radio"
-                       value="option2">
+                       value="F">
                 <label class="form-check-label" for="sexFemale">Female</label>
               </div>
             </div>
           </div>
 
-          <div class="form-row w-100 mt-5 ">
+          <div class="form-row w-100 mt-5">
             <div class="form-group text-left w-100 align-items-center col-lg-5">
               <label for="inputAddress">Address:</label>
               <input id="inputAddress" v-model="user.address" class="form-control" placeholder="1234 Main St"
@@ -96,28 +96,32 @@
               <input id="inputAddress2" v-model="user.address2" class="form-control"
                      placeholder="Apartment, studio, or floor" type="text">
             </div>
-            <div class="form-row text-left ml-0">
-              <div class="form-group col-md-6">
+            <div class="form-row text-left ml-0  w-100">
+              <div class="form-group col-lg-3">
                 <label for="inputCity">City:</label>
                 <input id="inputCity" v-model="user.city" class="form-control" placeholder="City" type="text">
               </div>
-              <div class="form-group text-left col-md-4">
+              <div class="form-group text-left col-lg-3">
                 <label for="inputState">State:</label>
                 <select id="inputState" v-model="user.state" class="form-control">
                   <option selected>Select...</option>
                   <option>Florida</option>
                 </select>
               </div>
-              <div class="form-group text-left col-md-2">
+              <div class="form-group text-left col-lg-1 mr-lg-5">
                 <label for="inputZip">Zip:</label>
-                <input id="inputZip" v-model="user.zip" class="form-control" placeholder="Zip Code" type="text">
+                <input id="inputZip" v-model="user.zip" class="form-control" placeholder="Zip" type="text">
+              </div>
+              <div class="form-group text-left col-lg-4 ml-lg-4">
+                <label for="inputZip">* Email:</label>
+                <input id="email" v-model="user.email" class="form-control" required placeholder="email@example.com" type="text">
               </div>
             </div>
           </div>
 
           <div class="form-row text-left mt-5 justify-content-lg-between">
             <div class="col-lg-3">
-              <label class="w-100">Social Security: </label>
+              <label class="w-100">* Social Security: </label>
               <input v-model="user.socialSecurity" class="form-control" placeholder="SS#" required type="text">
             </div>
             <div class="col-lg-3">
@@ -125,7 +129,7 @@
               <input v-model="user.homeNumber" class="form-control" placeholder="Phone" type="text">
             </div>
             <div class="col-lg-3">
-              <label class="w-100">Cell phone: </label>
+              <label class="w-100">* Cell phone: </label>
               <input v-model="user.cellNumber" class="form-control" placeholder="Phone" type="text">
             </div>
           </div>
@@ -174,26 +178,26 @@
             <div class="form-check form-check-inline">
               <input id="yesPatientHere" v-model="user.patientHere" class="form-check-input" name="patientHere"
                      type="radio"
-                     value="option1">
+                     value="Yes">
               <label class="form-check-label" for="yesLegalName">Yes</label>
             </div>
             <div class="form-check form-check-inline mr-lg-5">
               <input id="noPatientHere" v-model="user.patientHere" class="form-check-input" name="patientHere"
                      type="radio"
-                     value="option2">
+                     value="No">
               <label class="form-check-label" for="noLegalName">No</label>
             </div>
             <label class="col-lg-3 ml-lg-5">Is this patient covered by insurance?</label>
             <div class="form-check form-check-inline">
               <input id="yesPatientCovered" v-model="user.patientCovByInsurance" class="form-check-input"
                      name="patientCovered" type="radio"
-                     value="option1">
+                     value="Yes">
               <label class="form-check-label" for="yesLegalName">Yes</label>
             </div>
             <div class="form-check form-check-inline">
               <input id="noPatientCovered" v-model="user.patientCovByInsurance" class="form-check-input"
                      name="patientCovered" type="radio"
-                     value="option2">
+                     value="No">
               <label class="form-check-label" for="noLegalName">No</label>
             </div>
           </div>
@@ -343,11 +347,11 @@
 
           <div class="form-row text-left mt-lg-4 justify-content-lg-between">
             <div class="col-lg-6">
-              <input class="form-control signature text-center" v-model="user.signature" required type="text">
+              <input class="form-control signature-bg signature text-center" v-model="user.signature" required type="text">
               <small class="form-text" style="font-size: 14px">Patient/Guardian signature</small>
             </div>
             <div class="col-lg-5">
-              <input class="form-control signature text-center" disabled v-model="user.signatureDate" required  placeholder="{ Date }" type="text">
+              <input class="form-control signature-bg signature-date text-center" disabled v-model="user.signatureDate" required style="padding-top: 30px; padding-bottom: 27px;" type="date">
               <small class="form-text" style="font-size: 14px">Date</small>
             </div>
           </div>
@@ -381,6 +385,7 @@
 </template>
 
 <script>
+
 import {db} from '../firebase'
 
 export default {
@@ -390,10 +395,59 @@ export default {
       user: {
         userID: null,
         name: null,
-        sex: null,
-        dateOfBirth: null,
         email: null,
-        phone: null
+        phone: null,
+        registrationDate: new Date().toISOString().substr(0, 10),  // MM/DD/YYYY
+        pcp: null,
+        lName: null,
+        fName: null,
+        mName: null,
+        maritalStatus: null,
+        legalName: null,
+        isLegalName: null,
+        dateOfBirth: null,
+        age: null,
+        sex: null,
+        address: null,
+        address2: null,
+        city: null,
+        state: null,
+        zip: null,
+        socialSecurity: null,
+        homeNumber: null,
+        cellNumber: null,
+        occupation: null,
+        employer: null,
+        employerPhone: null,
+        responsibleBillPerson: null,
+        responsibleBillPersonDOB: null,
+        responsibleBillPersonAddress: null,
+        responsibleBillPersonHomePhone: null,
+        patientHere: null,
+        patientCovByInsurance: null,
+        insurPersOccupation: null,
+        insurPersEmployer: null,
+        insurPersEmployerAddress: null,
+        insurPersEmployerPhone: null,
+        primaryInsurance: null,
+        subscriberName: null,
+        subscriberSS: null,
+        subscriberDOB: null,
+        subscriberGroupNo: null,
+        subscriberPolicyNo: null,
+        subscriberCoPayAmount: null,
+        relationToSubscriber: null,
+        secondaryInsurance: null,
+        secondaryInsuranceSubscName: null,
+        secondaryInsuranceSubscGroupNo: null,
+        secondaryInsuranceSubscPolicyNo: null,
+        secondaryInsuranceRelationToPatient: null,
+        localRelativeName: null,
+        localRelativeRelation: null,
+        localRelativeHomePhone: null,
+        localRelativeWorkPhone: null,
+        signature: null,
+        signatureDate: new Date().toISOString().substr(0, 10),  // MM/DD/YYYY,
       }
     }
   },
@@ -424,19 +478,35 @@ export default {
             this.errorMsg = true;
           });
     },
+    // Get current system date
+    date_function: function () {
+
+      var currentDate = new Date();
+      console.log(currentDate);
+
+      var formatted_date = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+      console.log(formatted_date);
+
+    }
+  },
+  mounted () {
+    this.date_function()
   }
 }
 </script>
 
 <style scoped>
 
-.signature {
+.signature-bg {
   background: transparent;
   border: 0;
   border-bottom: 2px solid;
   border-radius: 0;
 }
 
+.signature-date {
+  text-indent: 20px;
+}
 
 .btn {
   border-radius: 10px;
