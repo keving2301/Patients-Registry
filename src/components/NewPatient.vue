@@ -365,27 +365,6 @@
               <small class="form-text" style="font-size: 14px">Date</small>
             </div>
           </div>
-
-          <!--<div class="mt-5">
-            <label>Patient Name </label>
-            <input v-model="user.name" required type="text">
-          </div>
-          <div>
-            <label>Sex :</label>
-            <input v-model="user.sex" required type="text">
-          </div>
-          <div>
-            <label>Date of Birth: </label>
-            <input v-model="user.dateOfBirth" required type="text">
-          </div>
-          <div>
-            <label>Email: </label>
-            <input v-model="user.email" required type="text">
-          </div>
-          <div>
-            <label>Phone: </label>
-            <input v-model="user.phone" required type="text">
-          </div>-->
           <button class="btn mx-lg-1 btn-outline-success my-5" type="submit">Submit</button>
           <router-link class="btn mx-lg-1 btn-outline-danger" to="/"> Cancel</router-link>
         </form>
