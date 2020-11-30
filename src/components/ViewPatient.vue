@@ -1,64 +1,84 @@
 <template>
   <div id="view-patient">
-    <div class="container-fluid">
-      <h3 class="mt-5 mb-5">View Patient</h3>
-      <h6>{{ userID }}</h6>
-      <h6>{{ email }}</h6>
-      <h6>{{ registrationDate }}</h6>
-      <h6>{{ pcp }}</h6>
-      <h6>{{ lName }}</h6>
-      <h6>{{ fName }}</h6>
-      <h6>{{ mName }}</h6>
-      <h6>{{ maritalStatus }}</h6>
-      <h6>{{ legalName }}</h6>
-      <h6>{{ isLegalName }}</h6>
-      <h6>{{ dateOfBirth }}</h6>
-      <h6>{{ age }}</h6>
-      <h6>{{ sex }}</h6>
-      <h6>{{ address }}</h6>
-      <h6>{{ address2 }}</h6>
-      <h6>{{ city }}</h6>
-      <h6>{{ state }}</h6>
-      <h6>{{ zip }}</h6>
-      <h6>{{ socialSecurity }}</h6>
-      <h6>{{ homeNumber }}</h6>
-      <h6>{{ cellNumber }}</h6>
-      <h6>{{ occupation }}</h6>
-      <h6>{{ employer }}</h6>
-      <h6>{{ employerPhone }}</h6>
-      <h6>{{ responsibleBillPerson }}</h6>
-      <h6>{{ responsibleBillPersonDOB }}</h6>
-      <h6>{{ responsibleBillPersonAddress }}</h6>
-      <h6>{{ responsibleBillPersonHomePhone }}</h6>
-      <h6>{{ patientHere }}</h6>
-      <h6>{{ patientCovByInsurance }}</h6>
-      <h6>{{ insurPersOccupation }}</h6>
-      <h6>{{ insurPersEmployer }}</h6>
-      <h6>{{ insurPersEmployerAddress }}</h6>
-      <h6>{{ insurPersEmployerPhone }}</h6>
-      <h6>{{ primaryInsurance }}</h6>
-      <h6>{{ subscriberName }}</h6>
-      <h6>{{ subscriberSS }}</h6>
-      <h6>{{ subscriberDOB }}</h6>
-      <h6>{{ subscriberGroupNo }}</h6>
-      <h6>{{ subscriberPolicyNo }}</h6>
-      <h6>{{ subscriberCoPayAmount }}</h6>
-      <h6>{{ relationToSubscriber }}</h6>
-      <h6>{{ secondaryInsurance }}</h6>
-      <h6>{{ secondaryInsuranceSubscName }}</h6>
-      <h6>{{ secondaryInsuranceSubscGroupNo }}</h6>
-      <h6>{{ secondaryInsuranceSubscPolicyNo }}</h6>
-      <h6>{{ secondaryInsuranceRelationToPatient }}</h6>
-      <h6>{{ localRelativeName }}</h6>
-      <h6>{{ localRelativeRelation }}</h6>
-      <h6>{{ localRelativeHomePhone }}</h6>
-      <h6>{{ calRelativeWorkPhone }}</h6>
-      <h6 class=" signature ">{{ signature }}</h6>
-      <h6>{{ signatureDate }}</h6>
-      <button class="text-dark btn-lg" @click="showDeleteModal=true"><i class="fa fa-trash"></i></button>
-      <router-link to="/">
-        <button class="text-dark btn-lg"><i class="fa fa-home"></i></button>
-      </router-link>
+    <div class="container" style="background: #F1F3F9; border-radius: 10px">
+      <div class="my-5 pb-2 text-left">
+        <div class="py-2 justify-content-end d-flex">
+          <button class="text-dark btn-lg border-0 bg-transparent" @click="showDeleteModal=true"><i class="fa fa-trash"></i></button>
+          <button class="text-dark btn-lg border-0 bg-transparent"><i @click="print" class="fa fa-print"></i></button>
+          <router-link to="/">
+            <button class="text-dark btn-lg border-0 bg-transparent"><i class="fa fa-home"></i></button>
+          </router-link>
+        </div>
+        <h5 class="mb-5 py-2 text-dark w-100 text-center ml-0" style="background-color: #D5DCE4">Patient
+          Information</h5>
+        <div class="container row">
+          <div class="col-lg-4 d-flex"><h7> Patient ID: </h7><h6 class="border-bottom ml-3"> {{ userID }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Registration Date: </h7><h6 class="border-bottom ml-3"> {{ registrationDate }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> PCP: </h7><h6 class="border-bottom ml-3"> {{ pcp }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Patient's name: </h7><h6 class="border-bottom ml-3"> {{ fName }} {{ mName }} {{ lName }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Date of Birth: </h7><h6 class="border-bottom ml-3"> {{ dateOfBirth }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Sex: </h7><h6 class="border-bottom ml-3"> {{ sex }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Is this the legal name?: </h7><h6 class="border-bottom ml-3"> {{ isLegalName }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Legal name: </h7><h6 class="border-bottom ml-3"> {{ legalName }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Social Security: </h7><h6 class="border-bottom ml-3"> {{ socialSecurity }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Marital Status: </h7><h6 class="border-bottom ml-3"> {{ maritalStatus }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Age: </h7><h6 class="border-bottom ml-3"> {{ age }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Occupation: </h7><h6 class="border-bottom ml-3"> {{ occupation }} </h6></div>
+          <div class="col-lg-12 d-flex"><h7> Address: </h7><h6 class="border-bottom ml-3" style="min-width: 20rem"> {{ address }} {{ address2 }}, {{ city }}, {{ state }}, {{ zip }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Email: </h7><h6 class="border-bottom ml-3" style="min-width: 14rem"> {{ email }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Home number: </h7><h6 class="border-bottom ml-3"> {{ homeNumber }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Cell number: </h7><h6 class="border-bottom ml-3"> {{ cellNumber }} </h6></div>
+          <div class="col-lg-8 d-flex"><h7> Employer: </h7><h6 class="border-bottom ml-3" style="min-width: 20rem"> {{ employer }} </h6></div>
+          <div class="col-lg-4 d-flex"><h7> Employer phone: </h7><h6 class="border-bottom ml-3"> {{ employerPhone }} </h6></div>
+        </div>
+        <h5 class="my-5 py-2 text-dark w-100 text-center mx-0" style="background-color: #D5DCE4">Insurance
+          Information</h5>
+        <div class="container row">
+          <div class="col-lg-4 d-flex"><h7> Person responsible for bill: </h7><h6 class="border-bottom ml-3"> {{ responsibleBillPerson }}</h6></div>
+          <div class="col-lg-4 d-flex"><h7> Date of birth: </h7><h6 class="border-bottom ml-3"> {{ responsibleBillPersonDOB }}</h6></div>
+          <div class="col-lg-4 d-flex"><h7> Home number: </h7><h6 class="border-bottom ml-3"> {{ responsibleBillPersonHomePhone }}</h6></div>
+          <div class="col-lg-12 d-flex"><h7> Address: </h7><h6 class="border-bottom ml-3" style="min-width: 20rem"> {{ responsibleBillPersonAddress }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Is the person responsible for bill a patient here?: </h7><h6 class="border-bottom ml-3"> {{ patientHere }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Is patient covered by insurance?: </h7><h6 class="border-bottom ml-3"> {{ patientCovByInsurance }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Occupation: </h7><h6 class="border-bottom ml-3"> {{ insurPersOccupation }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Employer: </h7><h6 class="border-bottom ml-3"> {{ insurPersEmployer }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Employer address: </h7><h6 class="border-bottom ml-3"> {{ insurPersEmployerAddress }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Employer number: </h7><h6 class="border-bottom ml-3"> {{ insurPersEmployerPhone }}</h6></div>
+          <div class="col-lg-12 d-flex"><h7> Primary insurance: </h7><h6 class="border-bottom ml-3"> {{ primaryInsurance }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s name: </h7><h6 class="border-bottom ml-3"> {{ subscriberName }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s social security: </h7><h6 class="border-bottom ml-3"> {{ subscriberSS }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s DOB: </h7><h6 class="border-bottom ml-3"> {{ subscriberDOB }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s group number: </h7><h6 class="border-bottom ml-3"> {{ subscriberGroupNo }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s policy number: </h7><h6 class="border-bottom ml-3"> {{ subscriberPolicyNo }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s co-payment amount: </h7><h6 class="border-bottom ml-3"> {{ subscriberCoPayAmount }}</h6></div>
+          <div class="col-lg-12 d-flex"><h7> Patient's relation to subscriber: </h7><h6 class="border-bottom ml-3"> {{ relationToSubscriber }}</h6></div>
+          <div class="col-lg-12 d-flex"><h7> Name of secondary insurance (if applicable): </h7><h6 class="border-bottom ml-3"> {{ secondaryInsurance }}</h6></div>
+          <div class="col-lg-12 d-flex"><h7> Subscriber’s name: </h7><h6 class="border-bottom ml-3"> {{ secondaryInsuranceSubscName }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s group number: </h7><h6 class="border-bottom ml-3"> {{ secondaryInsuranceSubscGroupNo }}</h6></div>
+          <div class="col-lg-6 d-flex"><h7> Subscriber’s policy number: </h7><h6 class="border-bottom ml-3"> {{ secondaryInsuranceSubscPolicyNo }}</h6></div>
+          <div class="col-lg-12 d-flex"><h7> Secondary insurance subscriber’s relationship with patient: </h7><h6 class="border-bottom ml-3">
+            {{ secondaryInsuranceRelationToPatient }}</h6></div>
+        </div>
+        <h5 class="my-5 py-2 text-dark w-100 text-center mx-0" style="background-color: #D5DCE4">In Case Of
+          Emergency</h5>
+        <div class="container row">
+          <div class="col-lg-6 d-flex"><h7> Name of local friend or relative: </h7><h6 class="border-bottom ml-3"></h6> {{ localRelativeName }}</div>
+          <div class="col-lg-6 d-flex"><h7> Relationship to patient: </h7><h6 class="border-bottom ml-3"></h6> {{ localRelativeRelation }}</div>
+          <div class="col-lg-6 d-flex"><h7> Relative's home phone: </h7><h6 class="border-bottom ml-3"></h6> {{ localRelativeHomePhone }}</div>
+          <div class="col-lg-6 d-flex"><h7> Relative's work phone: </h7><h6 class="border-bottom ml-3"></h6> {{ localRelativeWorkPhone }}</div>
+        </div>
+        <div class="container mr-0 row my-lg-5">
+          <small class="ml-3 mb-2">I verify that the above information is factual and true to the best of my I authorize the doctor to employ X-
+            Rays, photographs, anesthetics, medicines, surgeries, and other equipment or aids as he/she deems necessary in order to
+            provide the proper patient care. I understand that payment, proof of insurance, and/or copay is due at the time of service.
+          </small>
+          <small class="ml-3 mb-3">I authorize this office to apply benefits on my behalf for the covered services rendered. I certify that the insurance
+            information I have provided is factual and correct.
+          </small>
+          <div class="col-lg-6 d-flex align-items-end"><h7> Patient's signature: </h7><h6 class="ml-3 signature " style="min-width: 20rem"> {{ signature }} </h6></div>
+          <div class="col-lg-6 d-flex align-items-end"><h7>Patient's signature date: </h7><h6 class="ml-3" style="min-width: 15rem"> {{ signatureDate }} </h6></div>
+        </div>
+      </div>
     </div>
 
     <!--Delete User Model-->
@@ -304,13 +324,23 @@ export default {
       }).catch(function (error) {
         console.error("Error removing document: ", error);
       });
+    },
+    print () {
+      // Pass the element id here
+      this.$htmlToPaper('view-patient');
     }
   }
 }
 </script>
 
 <style scoped>
-h5 {
-  margin: 1.5rem;
+h6 {
+  text-align: center;
+  border-bottom: 1px solid !important;
+  min-width: 7.3rem;
+}
+
+div .d-flex {
+  margin-bottom: 5px !important;
 }
 </style>

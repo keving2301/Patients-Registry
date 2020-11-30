@@ -1,19 +1,28 @@
 <template>
   <div id="dashboard">
     <div>
-
       <div class="container" style="background: #F1F3F9; border-radius: 10px">
         <div class="mt-5">
-          <div class="row pt-4">
+          <div class="row pt-4 d-flex align-items-center justify-content-between">
             <div class="col-lg-6 col-md-6 col-6">
-              <h3 class="mt-0 float-left" style="margin: 40px 0 0">Patients Registry</h3>
+              <h3 class="m-0 py-2 float-left">Patients Registry</h3>
             </div>
-            <div class="col-lg-6 col-md-6 col-6">
-              <router-link to="/new">
-              <button class="btn btn-info float-right"> <!--@click="reset()">-->
-                <i class="fa fa-user mr-2"></i>&nbsp;&nbsp;Add New Patient
-              </button>
-              </router-link>
+            <div
+                class="btn-section col-lg-3 col-md-3 col-5 justify-content-end d-flex">
+              <button class="print text-dark btn-lg bg-transparent mr-lg-3 border-0"><i class="fa fa-print"
+                                                                                        @click="print"></i></button>
+              <div class="new-patient-section py-1">
+                <router-link class="new" to="/new">
+                  <button class="btn btn-info float-right">
+                    <i class="fa fa-user mr-2"></i>&nbsp;&nbsp;Add New Patient
+                  </button>
+                </router-link>
+                <router-link class="new-sm" style="display: none" to="/new">
+                  <button class="btn btn-info float-right" style="width: 40px">
+                    <i class="fa fa-user"></i>
+                  </button>
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -22,7 +31,7 @@
         <div v-if="successMsg" class="alert alert-success">Success Message</div>
 
         <!--Display Records-->
-        <div class="row">
+        <div class="row table-area">
           <div class="col-lg-12">
             <table class="table table-bordered">
               <thead class="border">
@@ -40,12 +49,20 @@
               <tbody class="rowhover">
               <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white rowhover">
                 <td>{{ idx + 1 }}</td>
-                <td><router-link class="text-decoration-none link" :to="{name: 'view-patient', params: {userID: user.userID}}">{{ user.fName }} {{ user.mName }} {{ user.lName}}</router-link></td>
+                <td>
+                  <router-link :to="{name: 'view-patient', params: {userID: user.userID}}"
+                               class="text-decoration-none link">{{ user.fName }}
+                    {{ user.mName }} {{ user.lName }}
+                  </router-link>
+                </td>
                 <td>{{ user.sex }}</td>
                 <td>{{ user.dateOfBirth }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.cellNumber }}</td>
-                <td><router-link class="text-decoration-none" :to="{name: 'edit-patient',params: {userID: user.userID}}"><a class="text-dark"><i class="fa fa-edit"></i></a></router-link></td>
+                <td>
+                  <router-link :to="{name: 'edit-patient',params: {userID: user.userID}}" class="text-decoration-none">
+                    <a class="text-dark"><i class="fa fa-edit"></i></a></router-link>
+                </td>
                 <td><a class="text-dark" href="#" @click="deleteUser(user)"><i class="fa fa-trash"></i></a></td>
               </tr>
               </tbody>
@@ -54,92 +71,92 @@
         </div>
       </div>
 
-     <!-- &lt;!&ndash;Add New User Model&ndash;&gt;
-      <div v-if="showAddModal" id="add" class="overlay">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Add New User</h5>
-              <button class="close" type="button" @click="showAddModal=false">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body p-4">
-              <form action="#" method="post">
-                <div class="form-group">
-                  <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
-                         type="text">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
-                         type="text">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
-                         placeholder="Date of Birth"
-                         type="text">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
-                         type="email">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
-                         type="tel">
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-info btn-block btn-lg"
-                          @click="showAddModal=false; saveNewUser(); successMsg=true">Add User
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- &lt;!&ndash;Add New User Model&ndash;&gt;
+       <div v-if="showAddModal" id="add" class="overlay">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title">Add New User</h5>
+               <button class="close" type="button" @click="showAddModal=false">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body p-4">
+               <form action="#" method="post">
+                 <div class="form-group">
+                   <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
+                          type="text">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
+                          type="text">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
+                          placeholder="Date of Birth"
+                          type="text">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
+                          type="email">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
+                          type="tel">
+                 </div>
+                 <div class="form-group">
+                   <button class="btn btn-info btn-block btn-lg"
+                           @click="showAddModal=false; saveNewUser(); successMsg=true">Add User
+                   </button>
+                 </div>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
 
-      &lt;!&ndash;Edit User Model&ndash;&gt;
-      <div v-if="showEditModal" id="edit" class="overlay" tabindex="-1">
-        <div class="modal-dialog" role="button">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Update User</h5>
-              <button aria-label="Close" class="close" data-dismiss="modal" type="button" @click="showEditModal=false">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body p-4">
-              <form action="#" method="post">
-                <div class="form-group">
-                  <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
-                         type="text">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
-                         type="text">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
-                         placeholder="Date of Birth"
-                         type="text">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
-                         type="email">
-                </div>
-                <div class="form-group">
-                  <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
-                         type="tel">
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-info btn-block btn-lg" @click="updateUser(); showEditModal=false ">Update User
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>-->
+       &lt;!&ndash;Edit User Model&ndash;&gt;
+       <div v-if="showEditModal" id="edit" class="overlay" tabindex="-1">
+         <div class="modal-dialog" role="button">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title">Update User</h5>
+               <button aria-label="Close" class="close" data-dismiss="modal" type="button" @click="showEditModal=false">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body p-4">
+               <form action="#" method="post">
+                 <div class="form-group">
+                   <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
+                          type="text">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
+                          type="text">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
+                          placeholder="Date of Birth"
+                          type="text">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
+                          type="email">
+                 </div>
+                 <div class="form-group">
+                   <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
+                          type="tel">
+                 </div>
+                 <div class="form-group">
+                   <button class="btn btn-info btn-block btn-lg" @click="updateUser(); showEditModal=false ">Update User
+                   </button>
+                 </div>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>-->
       <!--Delete User Model-->
       <div v-if="showDeleteModal" id="delete" class="overlay">
         <div class="modal-dialog">
@@ -319,6 +336,10 @@ export default {
       this.user.userID = '';
       this.showAddModal = true;
     },
+    print() {
+      // Pass the element id here
+      this.$htmlToPaper('dashboard');
+    }
   },
 
   // This function runs as soon as the page loads
@@ -351,24 +372,26 @@ router-link {
   height: 100% !important;
 
 }
-.rowhover:hover{
+
+.rowhover:hover {
   background: #f2f9ff !important;
 }
 
 .link {
   color: #43D3E8 !important;
 }
+
 .link:hover {
   color: #1a8d9f !important;
 }
 
 .overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.6);
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
 }
 
 .btn-info {
@@ -398,4 +421,99 @@ router-link {
   color: #F78F8F;
 }
 
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 480px) {
+
+  .container {
+    margin-top: 3rem;
+    font-size: 14px;
+    width: auto !important;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .new {
+    display: none;
+  }
+
+  .new-sm {
+    display: initial !important;
+  }
+
+  .print {
+    font-size: 25px;
+    margin-right: 20px;
+    padding: 0;
+  }
+
+  .new-sm i {
+    font-size: 20px !important;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .table th {
+    font-size: 12px;
+  }
+
+  .table-area {
+    overflow-x: scroll;
+  }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width: 321px) {
+  /* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width: 320px) {
+  /* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px) {
+  /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape) {
+  /* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: portrait) {
+  /* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width: 1224px) {
+  /* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width: 1824px) {
+  /* Styles */
+}
+
+/* iPhone 4 ----------- */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+  /* Styles */
+}
 </style>

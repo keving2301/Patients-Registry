@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div id="navbar" class="container-fluid">
     <div class="row align-items-center " style="background-color: #E2FBFF; height: 100px">
       <div class="col-lg-12">
         <router-link to="/">
