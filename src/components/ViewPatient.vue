@@ -11,7 +11,7 @@
         </div>
         <h5 class="mb-lg-5 mb-4 py-2 text-dark w-100 text-center ml-0" style="background-color: #D5DCE4">Patient
           Information</h5>
-        <div class="patient-info container row border mx-0">
+        <div class="patient-info container row mx-0">
           <div class="col-lg-4 row mx-0 d-flex"><h7> Patient ID: </h7><h6 class="border-bottom ml-lg-3"> {{ userID }} </h6></div>
           <div class="col-lg-4 row mx-0 d-flex"><h7> Registration Date: </h7><h6 class="border-bottom ml-lg-3"> {{ registrationDate }} </h6></div>
           <div class="col-lg-4 row mx-0 d-flex"><h7> PCP: </h7><h6 class="border-bottom ml-lg-3"> {{ pcp }} </h6></div>
@@ -67,7 +67,7 @@
           <div class="col-lg-6 d-flex row mx-0"><h7> Relative's home phone: </h7><h6 class="border-bottom ml-lg-3"></h6> {{ localRelativeHomePhone }}</div>
           <div class="col-lg-6 d-flex row mx-0"><h7> Relative's work phone: </h7><h6 class="border-bottom ml-lg-3"></h6> {{ localRelativeWorkPhone }}</div>
         </div>
-        <div class="patient-info container mx-0 row my-lg-5 mt-5 border">
+        <div class="patient-info container mx-0 row my-lg-5 mt-5">
           <small class="ml-3 mb-2">I verify that the above information is factual and true to the best of my I authorize the doctor to employ X-
             Rays, photographs, anesthetics, medicines, surgeries, and other equipment or aids as he/she deems necessary in order to
             provide the proper patient care. I understand that payment, proof of insurance, and/or copay is due at the time of service.
