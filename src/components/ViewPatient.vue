@@ -1,7 +1,7 @@
 <template>
   <div id="view-patient">
     <div class="container" style="background: #F1F3F9; border-radius: 10px">
-      <div class="my-5 pb-2 text-left">
+      <div class="my-lg-5 pb-2 text-left">
         <div class="py-2 justify-content-end d-flex">
           <button class="text-dark btn-lg border-0 bg-transparent" @click="showDeleteModal=true"><i class="fa fa-trash"></i></button>
           <button class="text-dark btn-lg border-0 bg-transparent"><i @click="print" class="fa fa-print"></i></button>
@@ -351,6 +351,9 @@ and (max-device-width: 480px) {
   #view-patient {
     margin: 0px 1rem;
   }
+  .container {
+    margin-top: 1rem;
+  }
   h6 {
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
@@ -365,7 +368,7 @@ and (max-device-width: 480px) {
     margin-bottom: 5px !important;
   }
   .patient-info div{
-    margin-bottom: 10px !important;
+    margin-bottom: 20px !important;
   }
   .address {
     min-width: 0px !important;

@@ -116,7 +116,7 @@
               <div class="form-group text-left col-lg-4 ml-lg-4">
                 <label for="inputZip">* Email:</label>
                 <input id="email" v-model="user.email" class="form-control" placeholder="email@example.com" required
-                       type="text">
+                       type="text" style="text-transform: lowercase">
               </div>
             </div>
           </div>
@@ -303,7 +303,7 @@
             </div>
           </div>
 
-          <div class="form-row text-left my-lg-5">
+          <div class="patient-info form-row text-left my-lg-5">
             <div class="col-lg-5">
               <label for="inputRelationship2">Patient’s relationship to subscriber: </label>
               <select id="inputRelationship2" v-model="user.secondaryInsuranceRelationToPatient" class="form-control">
@@ -312,7 +312,7 @@
                 <option>Children</option>
               </select>
             </div>
-            <div class="col-lg-5 ml-lg-5">
+            <div class="col-lg-5 my-lg-5">
               <label class="w-100">Other: </label>
               <input v-model="user.secondaryInsuranceRelationToPatient" class="form-control"
                      placeholder="Relationship to subscriber" type="text">
@@ -516,11 +516,12 @@ and (max-device-width: 480px) {
   }
 
   .todaysdate div {
-    margin-bottom: 10px !important;
+    margin-bottom: 20px !important;
   }
 
   .patient-info div{
-    margin-bottom: 10px !important;
+    margin-bottom: 20px !important;
   }
+
 }
 </style>

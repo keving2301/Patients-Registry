@@ -2,7 +2,7 @@
   <div id="dashboard">
     <div>
       <div class="container" style="background: #F1F3F9; border-radius: 10px">
-        <div class="mt-5">
+        <div class="mt-lg-5">
           <div class="row pt-4 d-flex align-items-center justify-content-between">
             <div class="col-lg-6 col-md-6 col-6">
               <h3 class="m-0 py-2 float-left">Patients Registry</h3>
@@ -70,94 +70,6 @@
           </div>
         </div>
       </div>
-
-      <!-- &lt;!&ndash;Add New User Model&ndash;&gt;
-       <div v-if="showAddModal" id="add" class="overlay">
-         <div class="modal-dialog">
-           <div class="modal-content">
-             <div class="modal-header">
-               <h5 class="modal-title">Add New User</h5>
-               <button class="close" type="button" @click="showAddModal=false">
-                 <span aria-hidden="true">&times;</span>
-               </button>
-             </div>
-             <div class="modal-body p-4">
-               <form action="#" method="post">
-                 <div class="form-group">
-                   <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
-                          type="text">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
-                          type="text">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
-                          placeholder="Date of Birth"
-                          type="text">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
-                          type="email">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
-                          type="tel">
-                 </div>
-                 <div class="form-group">
-                   <button class="btn btn-info btn-block btn-lg"
-                           @click="showAddModal=false; saveNewUser(); successMsg=true">Add User
-                   </button>
-                 </div>
-               </form>
-             </div>
-           </div>
-         </div>
-       </div>
-
-       &lt;!&ndash;Edit User Model&ndash;&gt;
-       <div v-if="showEditModal" id="edit" class="overlay" tabindex="-1">
-         <div class="modal-dialog" role="button">
-           <div class="modal-content">
-             <div class="modal-header">
-               <h5 class="modal-title">Update User</h5>
-               <button aria-label="Close" class="close" data-dismiss="modal" type="button" @click="showEditModal=false">
-                 <span aria-hidden="true">&times;</span>
-               </button>
-             </div>
-             <div class="modal-body p-4">
-               <form action="#" method="post">
-                 <div class="form-group">
-                   <input v-model="user.name" class="form-control form-control-lg" name="name" placeholder="Name"
-                          type="text">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.sex" class="form-control form-control-lg" name="sex" placeholder="Sex"
-                          type="text">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.dateOfBirth" class="form-control form-control-lg" name="dateOfBirth"
-                          placeholder="Date of Birth"
-                          type="text">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.email" class="form-control form-control-lg" name="email" placeholder="Email"
-                          type="email">
-                 </div>
-                 <div class="form-group">
-                   <input v-model="user.phone" class="form-control form-control-lg" name="phone" placeholder="Phone"
-                          type="tel">
-                 </div>
-                 <div class="form-group">
-                   <button class="btn btn-info btn-block btn-lg" @click="updateUser(); showEditModal=false ">Update User
-                   </button>
-                 </div>
-               </form>
-             </div>
-           </div>
-         </div>
-       </div>-->
-      <!--Delete User Model-->
       <div v-if="showDeleteModal" id="delete" class="overlay">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -427,7 +339,7 @@ and (min-device-width: 320px)
 and (max-device-width: 480px) {
 
   .container {
-    margin-top: 3rem;
+    margin-top: 1rem;
     font-size: 14px;
     width: auto !important;
     margin-left: 1rem;
