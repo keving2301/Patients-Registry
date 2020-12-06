@@ -7,22 +7,27 @@
             <div class="col-lg-6 col-md-6 col-6">
               <h3 class="m-0 py-2 float-left">Patients Registry</h3>
             </div>
-            <div
-                class="btn-section col-lg-3 col-md-3 col-5 justify-content-end d-flex">
-              <button class="print text-dark btn-lg bg-transparent mr-lg-3 border-0"><i class="fa fa-print"
-                                                                                        @click="print"></i></button>
-              <div class="new-patient-section py-1">
+            <div class="btn-section col-lg-6 col-md-6 col-6 row d-flex justify-content-end m-0 p-0">
+              <a class="fa fa-search border d-flex align-items-center bg-white pl-2 my-1 col-lg-4 col-4"
+                 style="border-radius: 10px">
+                <input class="search mx-2 h-100 w-100 border-0" placeholder="Search..." style="text-indent: 5px"/>
+              </a>
+              <div class="new-patient-section p-0 py-1 col-lg-4 m-0 mx-lg-3 col-4">
                 <router-link class="new" to="/new">
-                  <button class="btn btn-info float-right">
-                    <i class="fa fa-user mr-2"></i>&nbsp;&nbsp;Add New Patient
+                  <button class="w-100 btn btn-info float-right">
+                    <i class="fa fa-user p-0 m-0"></i>&nbsp;&nbsp;Add New Patient
                   </button>
                 </router-link>
                 <router-link class="new-sm" style="display: none" to="/new">
-                  <button class="btn btn-info float-right" style="width: 40px">
+                  <button class="btn btn-info" style="width: 40px">
                     <i class="fa fa-user"></i>
                   </button>
                 </router-link>
               </div>
+              <button class="print text-dark bg-transparent border-0 col-lg-1 m-0 col-4 mr-lg-3" style="font-size: 25px;
+                   padding: 0px 10px 0px 0px;">
+                <i class="fa fa-print" @click="print"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -33,9 +38,9 @@
         <!--Display Records-->
         <div class="row table-area">
           <div class="col-lg-12">
-            <table class="table table-bordered">
-              <thead class="border">
-              <tr class="text-center bg-info text-dark">
+            <table id="table" class="table table-bordered text-center">
+              <thead>
+              <tr class="bg-info text-dark">
                 <th>ID</th>
                 <th>Name</th>
                 <th>Sex</th>
@@ -47,7 +52,8 @@
               </tr>
               </thead>
               <tbody class="rowhover">
-              <tr v-for="(user, idx) in users" :key="user.userID" class="text-center bg-white rowhover">
+              <tr v-for="(user, idx) in users" :key="user.userID"
+                  class="text-center bg-white rowhover w-100 ">
                 <td>{{ idx + 1 }}</td>
                 <td>
                   <router-link :to="{name: 'view-patient', params: {userID: user.userID}}"
@@ -277,12 +283,16 @@ a {
   color: #42b983;
 }
 
+#table td {
+  vertical-align: middle;
+  width: max-content !important;
+}
+
 router-link {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
   height: 100% !important;
-
 }
 
 .rowhover:hover {
@@ -354,12 +364,6 @@ and (max-device-width: 480px) {
     display: initial !important;
   }
 
-  .print {
-    font-size: 25px;
-    margin-right: 20px;
-    padding: 0;
-  }
-
   .new-sm i {
     font-size: 20px !important;
   }
@@ -374,7 +378,16 @@ and (max-device-width: 480px) {
 
   .table-area {
     overflow-x: scroll;
+    margin-right: 1px;
   }
+
+  .fa-search {
+    /*background: transparent !important;*/
+    /*font-size: 20px;*/
+    /*border: none !important;*/
+    display: none !important;
+  }
+
 }
 
 /* Smartphones (landscape) ----------- */

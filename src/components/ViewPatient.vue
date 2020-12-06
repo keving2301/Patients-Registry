@@ -362,6 +362,7 @@ and (max-device-width: 480px) {
   h7 {
     font-weight: bold;
     font-size: 13px;
+    color: #6c757d !important;
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
@@ -373,5 +374,15 @@ and (max-device-width: 480px) {
   .address {
     min-width: 0px !important;
   }
+
+  .overlay {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+  }
+
 }
 </style>
