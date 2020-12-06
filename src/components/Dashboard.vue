@@ -67,9 +67,10 @@
                 <td>{{ user.cellNumber }}</td>
                 <td>
                   <router-link :to="{name: 'edit-patient',params: {userID: user.userID}}" class="text-decoration-none">
-                    <a class="text-dark"><i class="fa fa-edit"></i></a></router-link>
+                    <a class="text-dark"><i class="fa fa-edit" style="font-size: 20px"></i></a></router-link>
                 </td>
-                <td><a class="text-dark" href="#" @click="deleteUser(user)"><i class="fa fa-trash"></i></a></td>
+                <td><a class="text-dark" href="#" @click="deleteUser(user)"><i class="fa fa-trash"
+                                                                               style="font-size: 20px"></i></a></td>
               </tr>
               </tbody>
             </table>
