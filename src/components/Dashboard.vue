@@ -37,7 +37,7 @@
 
         <!--Display Records-->
         <div class="row table-area">
-          <div class="col-lg-12">
+          <div>
             <table id="table" class="table table-bordered text-center">
               <thead>
               <tr class="bg-info text-dark">
@@ -379,6 +379,7 @@ and (max-device-width: 480px) {
   .table-area {
     overflow-x: scroll;
     margin-right: 1px;
+    margin-left: 1px;
   }
 
   .fa-search {
