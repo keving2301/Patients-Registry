@@ -8,10 +8,11 @@
               <h3 class="m-0 py-2 float-left">Patients Registry</h3>
             </div>
             <div class="btn-section col-lg-6 col-md-6 col-6 row d-flex justify-content-end m-0 p-0">
-              <a class="fa fa-search border d-flex align-items-center bg-white pl-2 my-1 col-lg-4 col-4"
-                 style="border-radius: 10px">
-                <input class="search mx-2 h-100 w-100 border-0" placeholder="Search..." style="text-indent: 5px"/>
-              </a>
+              <label for="search" class="fa fa-search border d-flex align-items-center bg-white pl-2 my-1 col-lg-4 col-4"
+                     style="border-radius: 10px">
+                <input id="search" class="search mx-2 h-100 w-100 border-0" placeholder="Search..."
+                       style="text-indent: 5px"/>
+              </label>
               <div class="new-patient-section p-0 py-1 col-lg-4 m-0 mx-lg-3 col-4">
                 <router-link class="new" to="/new">
                   <button class="w-100 btn btn-info float-right">

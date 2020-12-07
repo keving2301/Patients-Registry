@@ -93,7 +93,7 @@
           </div>
           <div class="modal-body p-4">
             <h4 style="color: #F78E8E">Are you sure you want to delete this user?</h4>
-            <h5>You are deleting patient Kevin</h5>
+            <h5>You are deleting patient {{ fName }}</h5>
             <hr>
             <button class="btn btn-lg"
                     style="width: 100px; border-radius: 30px; background-color: #EAEAFA; color: #9195EE"
