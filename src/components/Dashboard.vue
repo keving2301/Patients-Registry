@@ -37,7 +37,7 @@
         <div v-if="successMsg" class="alert alert-success">Success Message</div>
 
         <!--Display Records-->
-        <div class="row table-area">
+        <div class="table-area border">
           <div>
             <table id="table" class="table table-bordered text-center">
               <thead>
