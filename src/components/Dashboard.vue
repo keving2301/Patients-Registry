@@ -1,35 +1,68 @@
 <template>
   <div id="dashboard">
     <div>
-      <div class="container" style="background: #F1F3F9; border-radius: 10px">
-        <div class="mt-lg-5">
+      <div class="container mt-lg-5" style="background: #F1F3F9; border-radius: 10px">
+        <div>
           <div class="row pt-4 d-flex align-items-center justify-content-between">
-            <div class="col-lg-6 col-md-6 col-6">
+            <div class="col-lg-4 col-md-4 col-6">
               <h3 class="m-0 py-2 float-left">Patients Registry</h3>
             </div>
-            <div class="btn-section col-lg-6 col-md-6 col-6 row d-flex justify-content-end m-0 p-0">
-              <label for="search" class="fa fa-search border d-flex align-items-center bg-white pl-2 my-1 col-lg-4 col-4"
+            <div class="btn-section col-lg-8 col-md-8 col-6 row d-flex justify-content-end m-0 p-0">
+
+              <!-- Search bar -->
+              <label class="searchbox d-flex align-items-center bg-white pl-2 my-1 col-lg-5 col-4" for="search"
                      style="border-radius: 10px">
-                <input id="search" class="search mx-2 h-100 w-100 border-0" placeholder="Search..."
-                       style="text-indent: 5px"/>
+                <i class="fa fa-search"></i>
+                <input id="search" v-model="search" class="search mx-2 h-100 w-100 border-0"
+                       placeholder="Search patient..."
+                       style="text-indent: 5px" type="text">
+                <button class="btn btn-search" type="submit">
+                </button>
               </label>
-              <div class="new-patient-section p-0 py-1 col-lg-4 m-0 mx-lg-3 col-4">
+
+              <!-- Add New Patient -->
+              <div class="new-patient-section p-0 py-1 col-lg-3 m-0 ml-lg-3 col-4">
                 <router-link class="new" to="/new">
                   <button class="w-100 btn btn-info float-right">
-                    <i class="fa fa-user p-0 m-0"></i>&nbsp;&nbsp;Add New Patient
-                  </button>
-                </router-link>
-                <router-link class="new-sm" style="display: none" to="/new">
-                  <button class="btn btn-info" style="width: 40px">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-user p-0 m-0 mr-2"></i>&nbsp;&nbsp;Add New Patient
                   </button>
                 </router-link>
               </div>
-              <button class="print text-dark bg-transparent border-0 col-lg-1 m-0 col-4 mr-lg-3" style="font-size: 25px;
-                   padding: 0px 10px 0px 0px;">
-                <i class="fa fa-print" @click="print"></i>
-              </button>
+
+              <div class="mr-2 mb-2">
+                <!-- Add New Patient when mobile-->
+                <router-link class="new-sm text-dark m-0 w-100" style="font-size: 25px; display: none" to="/new">
+                  <button class="print text-dark bg-transparent border-0 col-4">
+                    <i class="fa fa-user"></i>
+                  </button>
+                </router-link>
+
+                <!-- Print Section -->
+                <button class="print text-dark bg-transparent border-0 col-lg-1 m-0 col-4 mr-lg-3"
+                        style="font-size: 25px;">
+                  <i class="fa fa-print" @click="print"></i>
+                </button>
+
+                <!-- Search Section for Mobile-->
+                <button class="search-sm text-dark bg-transparent col-lg-1 m-0 col-4 mr-lg-3 border-0"
+                        style="font-size: 25px; display: none" @click="showSearch()">
+                  <i class="fa fa-search"></i>
+                </button>
+
+              </div>
             </div>
+          </div>
+          <div id="searchmobilesection" class="row d-flex align-items-center justify-content-between"
+               style=" display: none !important">
+            <label class="d-flex align-items-center bg-white pl-2 my-1 mx-3 w-100" for="search"
+                   style="border-radius: 10px; height: 35px">
+              <i class="fa fa-search"></i>
+              <input id="searchmobile" v-model="search" class="search mx-2 h-100 w-100 border-0"
+                     placeholder="Search patient..."
+                     style="text-indent: 5px" type="text">
+              <button class="btn btn-search" type="submit">
+              </button>
+            </label>
           </div>
         </div>
         <hr class="bg-info">
@@ -37,7 +70,7 @@
         <div v-if="successMsg" class="alert alert-success">Success Message</div>
 
         <!--Display Records-->
-        <div class="table-area border">
+        <div class="table-area">
           <div>
             <table id="table" class="table table-bordered text-center">
               <thead>
@@ -53,7 +86,7 @@
               </tr>
               </thead>
               <tbody class="rowhover">
-              <tr v-for="(user, idx) in users" :key="user.userID"
+              <tr v-for="(user, idx) in filteredPatients" :key="user.userID"
                   class="text-center bg-white rowhover w-100 ">
                 <td>{{ idx + 1 }}</td>
                 <td>
@@ -120,6 +153,7 @@ export default {
       showAddModal: false,
       showEditModal: false,
       showDeleteModal: false,
+      search: '',
       users: [],
       user: {
         userID: null,
@@ -258,7 +292,32 @@ export default {
     },
     print() {
       // Pass the element id here
-      this.$htmlToPaper('dashboard');
+      print();
+    },
+
+    showSearch() {
+      let x = document.getElementById("searchmobilesection");
+      if (x.style.display === "none") {
+        x.style.display = "initial";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  },
+
+  // Find input entered on the search bar and filter results
+  computed: {
+    filteredPatients: function () {
+
+      // Returns an array of users after filter applied
+      return this.users.filter((user) => {
+
+        // Creates variable to store user complete name for the search
+        let completeName = user.fName + user.mName + user.lName;
+
+        // Returns a boolean value True if found.
+        return completeName.toLowerCase().match(this.search.toLowerCase());
+      })
     }
   },
 
@@ -283,6 +342,14 @@ li {
 
 a {
   color: #42b983;
+}
+
+input:focus, .print:focus, .search-sm {
+  outline: none;
+}
+
+.search::placeholder {
+  font-family: 'Quicksand', sans-serif;;
 }
 
 #table td {
@@ -359,10 +426,10 @@ and (max-device-width: 480px) {
   }
 
   .new {
-    display: none;
+    display: none !important;
   }
 
-  .new-sm {
+  .new-sm, .search-sm {
     display: initial !important;
   }
 
@@ -381,10 +448,9 @@ and (max-device-width: 480px) {
   .table-area {
     overflow-x: scroll;
     margin-right: 1px;
-    margin-left: 1px;
   }
 
-  .fa-search {
+  .searchbox {
     /*background: transparent !important;*/
     /*font-size: 20px;*/
     /*border: none !important;*/
