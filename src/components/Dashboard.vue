@@ -1,7 +1,7 @@
 <template>
   <div id="dashboard">
     <div>
-      <div class="container mt-lg-5" style="background: #F1F3F9; border-radius: 10px">
+      <div class="container mt-lg-5" style="background: #F1F3F9; border-radius: 10px; padding-bottom: 0.01rem">
         <div>
           <div class="row pt-4 d-flex align-items-center justify-content-between">
             <div class="col-lg-4 col-md-4 col-6">
@@ -31,9 +31,9 @@
 
               <div class="mr-2 mb-2">
                 <!-- Add New Patient when mobile-->
-                <router-link class="new-sm text-dark m-0 w-100" style="font-size: 25px; display: none" to="/new">
+                <router-link class="new-sm text-dark m-0 w-100 " style="display: none" to="/new">
                   <button class="print text-dark bg-transparent border-0 col-4">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-user" style="font-size: 25px!important;"></i>
                   </button>
                 </router-link>
 
@@ -45,17 +45,16 @@
 
                 <!-- Search Section for Mobile-->
                 <button class="search-sm text-dark bg-transparent col-lg-1 m-0 col-4 mr-lg-3 border-0"
-                        style="font-size: 25px; display: none" @click="showSearch()">
+                        style="font-size: 25px; display: none" @click="showSearch('searchmobilesection')">
                   <i class="fa fa-search"></i>
                 </button>
-
               </div>
             </div>
           </div>
-          <div id="searchmobilesection" class="row d-flex align-items-center justify-content-between"
-               style=" display: none !important">
-            <label class="d-flex align-items-center bg-white pl-2 my-1 mx-3 w-100" for="search"
-                   style="border-radius: 10px; height: 35px">
+          <div id="searchmobilesection" class="row align-items-center px-2"
+               style=" display: none">
+            <label class="d-flex align-items-center bg-white my-1 ml-2 col-10" for="search"
+                   style="border-radius: 10px; height: 35px; min-width:  86% !important;">
               <i class="fa fa-search"></i>
               <input id="searchmobile" v-model="search" class="search mx-2 h-100 w-100 border-0"
                      placeholder="Search patient..."
@@ -63,6 +62,9 @@
               <button class="btn btn-search" type="submit">
               </button>
             </label>
+            <button class="btn ml-2 pl-1 p-0" @click="showSearch('searchmobilesection')">
+              <i class="fa fa-times-circle" style="font-size: 20px; color: #F78E8E"></i>
+            </button>
           </div>
         </div>
         <hr class="bg-info">
@@ -150,8 +152,6 @@ export default {
     return {
       errorMsg: false,
       successMsg: false,
-      showAddModal: false,
-      showEditModal: false,
       showDeleteModal: false,
       search: '',
       users: [],
@@ -214,18 +214,6 @@ export default {
       });
     },
 
-    // Creates New User with an auto generated Document ID
-    saveNewUser() {
-      db.collection("patients").add(this.user).then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-        this.user.userID = docRef.id; //Saves document ID as data field for user
-        this.updateUser();
-      }).catch(function (error) {
-        console.error("Error adding document: ", error);
-        this.errorMsg = true;
-      });
-    },
-
     // Update User
     updateUser() {
       db.collection("patients").doc(this.user.userID).update(this.user)
@@ -252,19 +240,6 @@ export default {
       });
     },
 
-    // Edit User
-    editUser(user) {
-      this.user.fName = user.fName;
-      this.user.mName = user.mName;
-      this.user.lName = user.lName;
-      this.user.sex = user.sex;
-      this.user.dateOfBirth = user.dateOfBirth;
-      this.user.cellNumber = user.cellNumber;
-      this.user.email = user.email;
-      this.user.userID = user.userID;
-      this.showEditModal = true;
-    },
-
     // Delete User
     deleteUser(user) {
       this.user.fName = user.fName;
@@ -278,31 +253,19 @@ export default {
       this.showDeleteModal = true;
     },
 
-    // Reset the data from the input field to null
-    reset() {
-      this.user.fName = '';
-      this.user.mName = '';
-      this.user.lName = '';
-      this.user.sex = '';
-      this.user.dateOfBirth = '';
-      this.user.cellNumber = '';
-      this.user.email = '';
-      this.user.userID = '';
-      this.showAddModal = true;
-    },
     print() {
       // Pass the element id here
       print();
     },
 
-    showSearch() {
-      let x = document.getElementById("searchmobilesection");
-      if (x.style.display === "none") {
-        x.style.display = "initial";
-      } else {
-        x.style.display = "none";
-      }
+    showSearch(id) {
+      var x = document.getElementById(id);
+      if(x.style.display === 'flex')
+        x.style.display = 'none';
+      else
+        x.style.display = 'flex';
     }
+
   },
 
   // Find input entered on the search bar and filter results
@@ -456,7 +419,6 @@ and (max-device-width: 480px) {
     /*border: none !important;*/
     display: none !important;
   }
-
 }
 
 /* Smartphones (landscape) ----------- */
