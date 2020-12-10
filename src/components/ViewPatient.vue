@@ -327,7 +327,7 @@ export default {
     },
     print () {
       // Pass the element id here
-      this.$htmlToPaper('view-patient');
+      print();
     }
   }
 }

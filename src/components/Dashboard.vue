@@ -260,7 +260,7 @@ export default {
 
     showSearch(id) {
       var x = document.getElementById(id);
-      if(x.style.display === 'flex')
+      if (x.style.display === 'flex')
         x.style.display = 'none';
       else
         x.style.display = 'flex';
@@ -278,8 +278,19 @@ export default {
         // Creates variable to store user complete name for the search
         let completeName = user.fName + user.mName + user.lName;
 
-        // Returns a boolean value True if found.
-        return completeName.toLowerCase().match(this.search.toLowerCase());
+        if (completeName.toLowerCase().match(this.search.toLowerCase())) {
+
+          // Returns a boolean value True if name found.
+          return completeName.toLowerCase().match(this.search.toLowerCase());
+        } else if (user.cellNumber.match(this.search)) {
+
+          // Returns a boolean value True if phone found.
+          return user.cellNumber.match(this.search);
+        } else if (user.email.match(this.search)) {
+
+          // Returns a boolean value True if email found.
+          return user.email.match(this.search);
+        }
       })
     }
   },
