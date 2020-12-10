@@ -4,12 +4,12 @@
       <div class="mt-lg-5">
         <form class="m-3" @submit.prevent="savePatient">
           <div class="todaysdate form-row container pt-5">
-            <div class="row text-left align-items-center text-center">
+            <div class="row col text-left align-items-center text-center">
               <label class="p-0 m-0 mr-3">Today's Date: </label>
-              <input v-model="user.registrationDate" class="form-control col-lg-4 bg-white" disabled type="date"
-              style="text-align: center; text-indent: 25px">
+              <input v-model="user.registrationDate" class="date form-control col-lg-7 bg-white" disabled type="date"
+              style="text-align: center; text-indent: 20px">
             </div>
-            <div class="row text-right align-items-center">
+            <div class="row col text-right align-items-center">
               <label class="p-0 m-0">PCP: </label>
               <input v-model="user.pcp" class="form-control col-lg-7 ml-lg-3" placeholder="PCP" type="text">
             </div>
@@ -524,5 +524,8 @@ and (max-device-width: 480px) {
     margin-bottom: 20px !important;
   }
 
+  .date {
+    text-indent: 25px;
+  }
 }
 </style>

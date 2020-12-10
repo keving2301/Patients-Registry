@@ -414,9 +414,6 @@ and (max-device-width: 480px) {
   }
 
   .searchbox {
-    /*background: transparent !important;*/
-    /*font-size: 20px;*/
-    /*border: none !important;*/
     display: none !important;
   }
 }
