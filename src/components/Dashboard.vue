@@ -289,7 +289,7 @@ export default {
         } else if (user.email.match(this.search)) {
 
           // Returns a boolean value True if email found.
-          return user.email.match(this.search);
+          return user.email.toLowerCase().match(this.search.toLowerCase());
         }
       })
     }
