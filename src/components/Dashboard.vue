@@ -21,9 +21,9 @@
               </label>
 
               <!-- Add New Patient -->
-              <div class="new-patient-section p-0 py-1 col-lg-3 m-0 ml-lg-3 col-4">
+              <div class="new-patient-section p-0 py-1 col-lg-3 m-0 ml-lg-3 col-4 safari_only_new_patient">
                 <router-link class="new" to="/new">
-                  <button class="w-100 btn btn-info float-right">
+                  <button class="w-100 btn btn-info float-right safari_only_new_button">
                     <i class="fa fa-user p-0 m-0 mr-2"></i>&nbsp;&nbsp;Add New Patient
                   </button>
                 </router-link>
@@ -38,7 +38,7 @@
                 </router-link>
 
                 <!-- Print Section -->
-                <button class="print text-dark bg-transparent border-0 col-lg-1 m-0 col-4 mr-lg-3"
+                <button class="print text-dark bg-transparent border-0 col-lg-1 m-0 col-4 mr-lg-3 safari_only_print"
                         style="font-size: 25px;">
                   <i class="fa fa-print" @click="print"></i>
                 </button>
@@ -480,4 +480,24 @@ and (min-width: 1824px) {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
   /* Styles */
 }
+
+/* Safari 11+ ---------- */
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+
+  .safari_only_new_patient {
+    padding: 0 !important;
+    padding-top: 3.5px !important;
+  }
+
+  .safari_only_new_button {
+    padding: 8.5px !important;
+  }
+
+  .safari_only_print {
+    margin: 0 !important;
+    margin-top: 7px !important;
+    padding-right: 2.5rem;
+  }
+}}
 </style>
