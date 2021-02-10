@@ -10,10 +10,10 @@
             <div class="btn-section col-lg-8 col-md-8 col-6 row d-flex justify-content-end m-0 p-0">
 
               <!-- Search bar -->
-              <label class="searchbox d-flex align-items-center bg-white pl-2 my-1 col-lg-5 col-4" for="search"
+              <label class="searchbox d-flex align-items-center bg-white pl-2 my-1 col-lg-5 col-4 safari_only_search" for="search"
                      style="border-radius: 10px">
                 <i class="fa fa-search"></i>
-                <input id="search" v-model="search" class="search mx-2 h-100 w-100 border-0"
+                <input id="search" v-model="search" class="search mx-2 h-100 w-100 border-0 safari_only_search"
                        placeholder="Search patient..."
                        style="text-indent: 5px" type="text">
                 <button class="btn btn-search" type="submit">
@@ -487,17 +487,22 @@ and (min-width: 1824px) {
 
   .safari_only_new_patient {
     padding: 0 !important;
-    padding-top: 3.5px !important;
+    padding-top: 6px !important;
   }
 
   .safari_only_new_button {
-    padding: 8.5px !important;
+    padding: 10px !important;
   }
 
   .safari_only_print {
     margin: 0 !important;
-    margin-top: 7px !important;
+    margin-top: 8px !important;
     padding-right: 2.5rem;
+  }
+
+  .safari_only_search {
+    margin: 5px !important;
+    padding-left: 15px !important;
   }
 }}
 </style>
