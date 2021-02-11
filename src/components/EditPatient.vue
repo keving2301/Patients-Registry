@@ -3,13 +3,13 @@
     <div class="container" style="background: #F1F3F9; border-radius: 10px">
       <div class="mt-lg-5">
         <form class="m-3" @submit.prevent="savePatient">
-          <div class="todaysdate form-row container pt-5 border">
-            <div class="row text-left align-items-center text-center border col-lg-5">
+          <div class="todaysdate form-row container pt-5">
+            <div class="row text-left align-items-center text-center col-lg-5">
               <label class="p-0 m-0 mr-3">Registration Date: </label>
               <input v-model="user.registrationDate" class="form-control bg-white col-lg-7 ml-lg-3" disabled type="date"
                      style="text-align: center; text-indent: 25px">
             </div>
-            <div class="row text-right align-items-center border col-lg-4 ml-lg-5">
+            <div class="row text-right align-items-center col-lg-4 ml-lg-5">
               <label class="p-0 m-0">PCP: </label>
               <input v-model="user.pcp" class="form-control col-lg-7 ml-lg-3" placeholder="PCP" type="text">
             </div>
