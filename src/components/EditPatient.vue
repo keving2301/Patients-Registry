@@ -3,13 +3,13 @@
     <div class="container" style="background: #F1F3F9; border-radius: 10px">
       <div class="mt-lg-5">
         <form class="m-3" @submit.prevent="savePatient">
-          <div class="todaysdate form-row container pt-5">
-            <div class="row text-left align-items-center text-center">
-              <label class="p-0 m-0 mr-3">Today's Date: </label>
-              <input v-model="user.registrationDate" class="form-control col-lg-4 bg-white" disabled type="date"
+          <div class="todaysdate form-row container pt-5 border">
+            <div class="row text-left align-items-center text-center border col-lg-5">
+              <label class="p-0 m-0 mr-3">Registration Date: </label>
+              <input v-model="user.registrationDate" class="form-control bg-white col-lg-7 ml-lg-3" disabled type="date"
                      style="text-align: center; text-indent: 25px">
             </div>
-            <div class="row text-right align-items-center">
+            <div class="row text-right align-items-center border col-lg-4 ml-lg-5">
               <label class="p-0 m-0">PCP: </label>
               <input v-model="user.pcp" class="form-control col-lg-7 ml-lg-3" placeholder="PCP" type="text">
             </div>
@@ -363,7 +363,7 @@
             <div class="col-lg-5">
               <input v-model="user.signatureDate" class="form-control signature-bg signature-date text-center" disabled
                      required style="padding-top: 30px; padding-bottom: 27px;" type="date">
-              <small class="form-text" style="font-size: 14px">Date</small>
+              <small class="form-text" style="font-size: 14px">Signature Date</small>
             </div>
           </div>
           <button class="btn mx-1 btn-outline-success my-5" type="submit">Submit</button>
