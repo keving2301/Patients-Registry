@@ -68,7 +68,7 @@
             </div>
             <div class="col-lg-1 align-items-center mr-lg-4 text-left text-lg-center">
               <label class="w-100" for="age">Age:</label>
-              <input id="age" v-model="user.age" class="form-control" max="100" min="0" name="age" step="10"
+              <input id="age" v-model="user.age" class="form-control" max="100" min="0" name="age" step="1"
                      type="number"
                      value="30">
             </div>

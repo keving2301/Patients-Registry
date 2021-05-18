@@ -63,12 +63,12 @@
             </div>
             <div class="col-lg-2 w-auto align-items-center mr-lg-4 text-left text-lg-center"> <!-- Date input -->
               <label class="w-100" for="date">* Birth date:</label>
-              <input id="date" v-model="user.dateOfBirth" class="form-control" name="date" placeholder="MM/DD/YYYY"
+              <input id="date" v-model="user.dateOfBirth" class="form-control text-lg-center" name="date" placeholder="MM/DD/YYYY"
                      required type="text"/>
             </div>
             <div class="col-lg-1 align-items-center mr-lg-4 text-left text-lg-center">
               <label class="w-100" for="age">Age:</label>
-              <input id="age" v-model="user.age" class="form-control" max="100" min="0" name="age" step="10"
+              <input id="age" v-model="user.age" class="form-control" max="100" min="0" name="age" step="1"
                      type="number"
                      value="30">
             </div>
