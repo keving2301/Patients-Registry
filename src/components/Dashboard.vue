@@ -1,7 +1,7 @@
 <template>
   <div id="dashboard">
     <div>
-      <div class="container mt-lg-5" style="background: #F1F3F9; border-radius: 10px; padding-bottom: 0.01rem">
+      <div class="container col-12" style="background: #F1F3F9; border-radius: 10px; padding-bottom: 0.01rem">
         <div>
           <div class="row pt-4 d-flex align-items-center justify-content-between">
             <div class="col-lg-4 col-md-4 col-6">
@@ -10,7 +10,7 @@
             <div class="btn-section col-lg-8 col-md-8 col-6 row d-flex justify-content-end m-0 p-0">
 
               <!-- Search bar -->
-              <label class="searchbox d-flex align-items-center bg-white pl-2 my-1 col-lg-5 col-4 safari_only_search" for="search"
+              <label class="searchbox d-flex align-items-center bg-white pl-2 my-1 col-4 safari_only_search" for="search"
                      style="border-radius: 10px">
                 <i class="fa fa-search"></i>
                 <input id="search" v-model="search" class="search mx-2 h-100 w-100 border-0 safari_only_search"
@@ -21,10 +21,10 @@
               </label>
 
               <!-- Add New Patient -->
-              <div class="new-patient-section p-0 py-1 col-lg-3 m-0 ml-lg-3 col-4 safari_only_new_patient">
+              <div class="new-patient-section p-0 py-1 col-lg-3 m-0 col-4 safari_only_new_patient">
                 <router-link class="new" to="/new">
                   <button class="w-100 btn btn-info float-right safari_only_new_button">
-                    <i class="fa fa-user p-0 m-0 mr-2"></i>&nbsp;&nbsp;Add New Patient
+                    <i class="fa fa-user p-0 m-0 mr-2"></i><span class="new-patient-label">Add New Patient</span>&nbsp;
                   </button>
                 </router-link>
               </div>
@@ -389,7 +389,7 @@ router-link {
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen
 and (min-device-width: 320px)
-and (max-device-width: 480px) {
+and (max-device-width: 767px) {
 
   .container {
     margin-top: 1rem;
@@ -445,29 +445,54 @@ and (max-width: 320px) {
 @media only screen
 and (min-device-width: 768px)
 and (max-device-width: 1024px) {
-  /* Styles */
-}
 
-/* iPads (landscape) ----------- */
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px)
-and (orientation: landscape) {
-  /* Styles */
-}
+  .container {
+    margin-top: 1rem;
+    font-size: 14px;
+    width: auto !important;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 
-/* iPads (portrait) ----------- */
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px)
-and (orientation: portrait) {
-  /* Styles */
+  h3 {
+    font-size: 20px;
+  }
+
+  .table th {
+    font-size: 12px;
+  }
+
+  .table-area {
+    overflow-x: scroll;
+    margin-right: 1px;
+  }
+
+  .searchbox, .print {
+    margin-right: 1rem !important;
+  }
+
+  .new-patient-label {
+    font-size: 14px !important;
+  }
 }
 
 /* Desktops and laptops ----------- */
 @media only screen
-and (min-width: 1224px) {
-  /* Styles */
+and (min-width: 1025px) {
+
+  .container {
+    margin-top: 1rem;
+    font-size: 14px;
+    width: auto !important;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .new-patient-label {
+    font-size: 14px !important;
+  }
+  .searchbox {
+    margin-right: 1rem !important;
+  }
 }
 
 /* Large screens ----------- */
