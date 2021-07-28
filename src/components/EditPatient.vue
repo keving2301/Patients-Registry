@@ -1,8 +1,8 @@
 <template>
   <div id="new-patient" style="font-size: 13px; font-weight: bold">
     <div class="container" style="background: #F1F3F9; border-radius: 10px">
-      <div class="mt-lg-5">
-        <form class="m-3" @submit.prevent="savePatient">
+      <div>
+        <form class="m-3" @submit.prevent="updateUser">
           <div class="todaysdate form-row container pt-5">
             <div class="row text-left align-items-center text-center col-lg-5">
               <label class="p-0 m-0 mr-3">Registration Date: </label>

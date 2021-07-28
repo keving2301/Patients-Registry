@@ -1,7 +1,7 @@
 <template>
   <div id="new-patient" style="font-size: 13px; font-weight: bold">
     <div class="container" style="background: #F1F3F9; border-radius: 10px">
-      <div class="mt-lg-5">
+      <div>
         <form class="m-3" @submit.prevent="savePatient">
           <div class="todaysdate form-row container pt-5">
             <div class="row col text-left align-items-center text-center">
@@ -447,7 +447,7 @@ export default {
     // Creates New User with an auto generated Document ID
     savePatient() {
       db.collection("patients").add(this.user).then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
+        // console.log("Document written with ID: ", docRef.id);
         this.user.userID = docRef.id; //Saves document ID as data field for user
         this.updateUser();
         this.$router.push('/')
