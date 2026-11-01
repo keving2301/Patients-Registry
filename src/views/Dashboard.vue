@@ -11,6 +11,11 @@
       </button>
     </div>
 
+    <p class="demo-banner no-print" role="note">
+      <app-icon name="info" :size="16" />
+      <span><strong>This is a demo on fictional data.</strong> Only you see these patients, and your changes stay in your own sandbox.</span>
+    </p>
+
     <div v-if="status === 'loading'" class="loading" aria-busy="true" aria-label="Loading patients">
       <div v-for="n in 6" :key="n" class="loading-row">
         <span class="skeleton" style="width: 9%" />
@@ -206,6 +211,22 @@ export default {
 </script>
 
 <style scoped>
+.demo-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding: 10px var(--space-3);
+  border: 1px solid #cdeef4;
+  border-radius: var(--radius-sm);
+  background: var(--tint);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.demo-banner .app-icon { flex: none; margin-top: 3px; color: var(--accent); }
+.demo-banner strong { font-weight: 600; }
+
 .loading { border-top: 1px solid var(--line); }
 
 .loading-row {
@@ -332,7 +353,13 @@ export default {
     margin: var(--space-1) 0 0 calc(-1 * var(--space-2));
   }
 
-  .item-actions .btn { min-height: 40px; }
+  .item-actions .btn { min-height: 44px; }
+
+  .item-name {
+    display: inline-block;
+    padding: 10px 0 6px;
+    margin: -10px 0 -6px;
+  }
 
   .print-list { display: none; }
 }
@@ -340,7 +367,9 @@ export default {
 @media print {
   .patients-table { display: table !important; }
   .patients-list { display: none !important; }
-  .patients-table td { height: auto; padding: 6px 8px; }
+  .patients-table { font-size: 9pt; }
+  .patients-table td { height: auto; padding: 6px 6px; }
+  .patients-table .email { white-space: nowrap; word-break: normal; }
   .patients-table tbody tr:hover td { background: none; }
 }
 </style>

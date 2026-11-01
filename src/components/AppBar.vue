@@ -102,6 +102,7 @@ export default {
 }
 
 .brand:hover { color: var(--ink); }
+.brand { min-height: 44px; }
 
 .brand-mark { width: 18px; height: 24px; }
 
@@ -128,8 +129,8 @@ export default {
 
 .search-input {
   width: 100%;
-  height: 40px;
-  padding: 0 40px 0 40px;
+  height: 44px;
+  padding: 0 44px 0 40px;
   border: 1px solid var(--field-border);
   border-radius: var(--radius-sm);
   background: var(--canvas);
@@ -143,12 +144,12 @@ export default {
 .search-clear {
   position: absolute;
   top: 50%;
-  right: 4px;
+  right: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   transform: translateY(-50%);
   border: 0;
   border-radius: var(--radius-sm);

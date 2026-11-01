@@ -64,8 +64,9 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 44px;
+  height: 44px;
+  margin: -8px -8px -8px 0;
   border: 0;
   border-radius: var(--radius-sm);
   background: none;

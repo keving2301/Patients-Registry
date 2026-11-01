@@ -43,6 +43,7 @@
   :root { --gutter: 16px; }
 }
 
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
@@ -222,6 +223,13 @@ select.input {
 
 @keyframes skeleton-pulse {
   50% { opacity: 0.55; }
+}
+
+/* Touch screens: every control is at least 44px tall. */
+@media (max-width: 899px), (pointer: coarse) {
+  .btn { min-height: 44px; }
+  .btn-quiet { min-height: 44px; }
+  .back-link { min-height: 44px; margin-bottom: var(--space-1); }
 }
 
 /* Print: only the content marked for print. */

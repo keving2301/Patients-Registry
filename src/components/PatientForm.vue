@@ -356,6 +356,8 @@ fieldset.field {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+  min-height: 44px;
+  padding-right: var(--space-2);
   cursor: pointer;
 }
 
@@ -412,9 +414,36 @@ fieldset.field {
 }
 
 @media (max-width: 1099px) {
-  .patient-form { grid-template-columns: minmax(0, 1fr); }
-  .section-nav { display: none; }
+  .patient-form { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .form-body { max-width: none; }
+
+  /* The section list becomes one row of links that scrolls sideways above the form. */
+  .section-nav {
+    position: static;
+    margin: 0 calc(-1 * var(--gutter)) var(--space-3);
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .section-nav::-webkit-scrollbar { display: none; }
+
+  .section-nav ul {
+    display: flex;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .section-nav a {
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-left-width: 1px;
+    border-radius: 22px;
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 719px) {
