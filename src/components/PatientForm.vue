@@ -420,6 +420,7 @@ fieldset.field {
   /* The section list becomes one row of links that scrolls sideways above the form. */
   .section-nav {
     position: relative;
+    top: auto;
     margin: 0 calc(-1 * var(--gutter)) var(--space-3);
     padding: 0 var(--gutter);
     overflow-x: auto;
