@@ -135,6 +135,7 @@ export default {
   border-radius: var(--radius-sm);
   background: var(--canvas);
   font-size: var(--text-md);
+  transition: border-color var(--dur-fast) ease-out, box-shadow var(--dur-fast) ease-out;
 }
 
 .search-input::placeholder { color: var(--muted); opacity: 1; }

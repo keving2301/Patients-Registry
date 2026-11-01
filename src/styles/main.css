@@ -37,6 +37,11 @@
   --page-width: 1200px;
   --gutter: 32px;
   --bar-height: 64px;
+
+  /* One timing family: 200ms for things that move, 150ms for color changes, always easing out. */
+  --dur: 200ms;
+  --dur-fast: 150ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @media (max-width: 719px) {
@@ -142,6 +147,7 @@ a:hover { color: var(--accent-strong); }
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  transition: background-color var(--dur-fast) ease-out, border-color var(--dur-fast) ease-out, color var(--dur-fast) ease-out;
 }
 
 .btn:disabled { opacity: 0.6; cursor: default; }
@@ -178,6 +184,7 @@ a:hover { color: var(--accent-strong); }
   background: var(--canvas);
   font-size: var(--text-md);
   line-height: 1.5;
+  transition: border-color var(--dur-fast) ease-out, box-shadow var(--dur-fast) ease-out;
 }
 
 .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
@@ -217,12 +224,21 @@ select.input {
   background: var(--subtle);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .skeleton { animation: skeleton-pulse 1.6s ease-in-out infinite; }
+/* A loading placeholder appears only if loading takes longer than a moment, and it holds still. */
+.delayed-in {
+  opacity: 0;
+  animation: delayed-in var(--dur-fast) ease-out 250ms forwards;
 }
 
-@keyframes skeleton-pulse {
-  50% { opacity: 0.55; }
+@keyframes delayed-in {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur: 0.01ms;
+    --dur-fast: 0.01ms;
+  }
 }
 
 /* Touch screens: every control is at least 44px tall. */

@@ -16,7 +16,7 @@
       <span><strong>This is a demo on fictional data.</strong> Only you see these patients, and your changes stay in your own sandbox.</span>
     </p>
 
-    <div v-if="status === 'loading'" class="loading" aria-busy="true" aria-label="Loading patients">
+    <div v-if="status === 'loading'" class="loading delayed-in" aria-busy="true" aria-label="Loading patients">
       <div v-for="n in 6" :key="n" class="loading-row">
         <span class="skeleton" style="width: 9%" />
         <span class="skeleton" style="width: 22%" />

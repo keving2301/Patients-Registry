@@ -1,4 +1,5 @@
 <template>
+  <transition name="dialog">
   <div v-if="patient" class="dialog-backdrop no-print" @mousedown.self="cancel">
     <div
       ref="dialog"
@@ -12,7 +13,7 @@
     >
       <h2 id="delete-title" class="dialog-title">Delete {{ name }}?</h2>
       <p id="delete-text" class="dialog-text">
-        This removes patient {{ patient.id }} and the whole intake record from your sandbox. You can't undo this.
+        This removes patient {{ shown && shown.id }} and the whole intake record from your sandbox. You can't undo this.
       </p>
       <div class="dialog-actions">
         <button ref="cancel" class="btn btn-secondary" type="button" :disabled="busy" @click="cancel">Cancel</button>
@@ -22,6 +23,7 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -34,13 +36,15 @@ export default {
     busy: { type: Boolean, default: false }
   },
   data() {
-    return { returnFocus: null }
+    return { returnFocus: null, shown: null }
   },
   computed: {
-    name() { return this.patient ? fullName(this.patient) : '' }
+    name() { return this.shown ? fullName(this.shown) : '' }
   },
   watch: {
     patient(value) {
+      // The last patient stays on screen while the dialog fades out.
+      if (value) this.shown = value
       if (value) {
         this.returnFocus = document.activeElement
         this.$nextTick(() => this.$refs.cancel && this.$refs.cancel.focus())
@@ -84,6 +88,13 @@ export default {
   padding: var(--gutter);
   background: rgba(26, 41, 48, 0.45);
 }
+
+.dialog-enter-active { transition: opacity var(--dur) var(--ease-out); }
+.dialog-leave-active { transition: opacity var(--dur-fast) ease-in; }
+.dialog-enter, .dialog-leave-to { opacity: 0; }
+.dialog-enter-active .dialog { transition: transform var(--dur) var(--ease-out); }
+.dialog-leave-active .dialog { transition: transform var(--dur-fast) ease-in; }
+.dialog-enter .dialog, .dialog-leave-to .dialog { transform: translateY(8px); }
 
 .dialog {
   width: 100%;

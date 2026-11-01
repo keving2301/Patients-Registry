@@ -38,7 +38,11 @@ export default {
   min-height: 100vh;
 }
 
-.app-main { flex: 1 0 auto; }
+.app-main { flex: 1 0 auto; min-height: calc(100vh - var(--bar-height)); }
+
+@media print {
+  .app-main { min-height: 0; }
+}
 .app-main:focus { outline: none; }
 
 .skip-link {

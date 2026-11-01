@@ -1,5 +1,5 @@
 <template>
-  <div class="toasts no-print" role="status" aria-live="polite">
+  <transition-group tag="div" name="toast" class="toasts no-print" role="status" aria-live="polite">
     <div v-for="item in items" :key="item.id" class="toast" :class="`is-${item.tone}`">
       <app-icon :name="item.tone === 'error' ? 'alert' : 'check'" :size="18" class="toast-icon" />
       <p class="toast-text">{{ item.message }}</p>
@@ -7,7 +7,7 @@
         <app-icon name="close" :size="16" />
       </button>
     </div>
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -81,10 +81,8 @@ export default {
   .toasts { top: var(--space-2); right: var(--gutter); left: var(--gutter); width: auto; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .toast { animation: toast-in 160ms ease-out; }
-  @keyframes toast-in {
-    from { opacity: 0; transform: translateY(-8px); }
-  }
-}
+.toast-enter-active { transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out); }
+.toast-leave-active { position: absolute; width: 100%; transition: opacity var(--dur-fast) ease-in, transform var(--dur-fast) ease-in; }
+.toast-move { transition: transform var(--dur) var(--ease-out); }
+.toast-enter, .toast-leave-to { opacity: 0; transform: translateY(-8px); }
 </style>
