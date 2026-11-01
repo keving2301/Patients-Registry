@@ -1,0 +1,35 @@
+# Netlify build for https://patients-registry.netlify.app
+[build]
+  command = "yarn build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Vue CLI 4 runs webpack 4, which hashes with MD4; Node 17 and later need the legacy OpenSSL provider for it.
+  NODE_OPTIONS = "--openssl-legacy-provider"
+  # The Firebase web API key is public by design (access is controlled by firestore.rules),
+  # so Netlify's secret scan should not stop the build on it.
+  SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyC0oSwy13OSbzMXgZAC5mpiStaZt0GfROc"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+
+# Built JavaScript, CSS and fonts carry a content hash in their names.
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

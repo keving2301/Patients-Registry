@@ -1,27 +1,13 @@
 import Vue from 'vue'
+import '@fontsource-variable/public-sans/wght.css'
+import './styles/main.css'
 import App from './App.vue'
 import router from './router'
-import VueHtmlToPaper from 'vue-html-to-paper';
+import { openSandbox } from './patients'
 
 Vue.config.productionTip = false
 
-Vue.use(VueHtmlToPaper, options);
-// or using the defaults with no stylesheet
-// Vue.use(VueHtmlToPaper);
-const options = {
-    name: '_blank',
-    specs: [
-        'fullscreen=yes',
-        'titlebar=yes',
-        'scrollbars=yes'
-    ],
-    styles: [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-        'https://unpkg.com/kidlat-css/css/kidlat.css'
-    ]
-}
+// Start signing in while the first page renders; every data call waits on the same promise.
+openSandbox().catch(() => {})
 
-new Vue({el: '#app', router, render: h => h(App)})
-
-
-
+new Vue({ router, render: h => h(App) }).$mount('#app')
