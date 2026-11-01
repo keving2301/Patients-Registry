@@ -1,0 +1,17 @@
+rules_version = '2';
+
+// Every visitor signs in anonymously and gets a private sandbox: sandboxes/{uid}/patients/{patientId}.
+// A signed-in user can read and write only their own sandbox. Everything else is closed.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /sandboxes/{uid}/{document=**} {
+      allow read, delete: if isOwner(uid);
+      // A patient record has about 50 fields; the cap keeps a sandbox from being used as free storage.
+      allow create, update: if isOwner(uid) && request.resource.data.keys().size() <= 64;
+    }
+  }
+}
